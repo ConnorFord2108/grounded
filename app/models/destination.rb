@@ -1,4 +1,6 @@
 class Destination < ApplicationRecord
   has_many :reviews, through: :travel_plans, dependent: :destroy
-  validates :name, :description, presence: true
+  validates :address, :description, presence: true
+  geocoded_by :address
+  after_validation :geocode, if: :will_save_change_to_address?
 end

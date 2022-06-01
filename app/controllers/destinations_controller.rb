@@ -69,8 +69,4 @@ class DestinationsController < ApplicationController
     raise
   end
 
-  def show
-
-  end
-
 end

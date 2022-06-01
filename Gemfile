@@ -64,5 +64,9 @@ end
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 gem 'geocoder'
 
-#adding json gem
+# adding json gem
 gem 'json', '~> 2.6', '>= 2.6.2'
+
+# adding sidekiq to run asyncron processes
+gem 'sidekiq'
+gem 'sidekiq-failures', '~> 1.0'

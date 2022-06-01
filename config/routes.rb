@@ -7,4 +7,9 @@ Rails.application.routes.draw do
   end
   resources :travel_plans, only: [:index]
   post '/destinations', to: 'destinations#index'
+
+  # require "sidekiq/web"
+  # authenticate :user, ->(user) { user.admin? } do
+  #   mount Sidekiq::Web => '/sidekiq'
+  # end
 end

@@ -142,21 +142,33 @@ class DestinationsController < ApplicationController
     response = Net::HTTP.get(uri)
     data = JSON.parse(response)["entities"]
 
+    # adding default image array for those cities where WikiData does not have default, array so one can be sampled and if several lack pic not all look same
+    default_image_array = ["https://images.unsplash.com/photo-1555658636-6e4a36218be7?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80",
+      "https://images.unsplash.com/photo-1498654896293-37aacf113fd9?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80",
+      "https://images.unsplash.com/photo-1544161442-e3db36c4f67c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1978&q=80",
+      "https://images.unsplash.com/photo-1535958636474-b021ee887b13?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80"
+    ]
+
     # for each near destination we parse the response data
     @near_destinations.each do |near_dest|
-      picture_name = data[near_dest[:wikidata_id]]["claims"]["P18"][0]["mainsnak"]["datavalue"]["value"]
-      picture_name_2 = picture_name.gsub(/\s/,'_')
-      picture_md5 = Digest::MD5.hexdigest picture_name_2
-      a = picture_md5[0]
-      b = picture_md5[1]
-      near_dest[:picture_url] = "https://upload.wikimedia.org/wikipedia/commons/#{a}/#{a}#{b}/#{picture_name_2}"
-      near_dest[:description] = data[near_dest[:wikidata_id]]["descriptions"]["en"]["value"].upcase_first
+      if data[near_dest[:wikidata_id]]["claims"]["P18"].nil?
+        near_dest[:picture_url] = default_image_array.sample
+      else
+        picture_name = data[near_dest[:wikidata_id]]["claims"]["P18"][0]["mainsnak"]["datavalue"]["value"]
+        picture_name_2 = picture_name.gsub(/\s/,'_')
+        picture_md5 = Digest::MD5.hexdigest picture_name_2
+        a = picture_md5[0]
+        b = picture_md5[1]
+        near_dest[:picture_url] = "https://upload.wikimedia.org/wikipedia/commons/#{a}/#{a}#{b}/#{picture_name_2}"
+      end
+      if data[near_dest[:wikidata_id]]["descriptions"]["en"].nil?
+        near_dest[:description] = "Beautiful city close to #{@city}"
+      else
+        near_dest[:description] = data[near_dest[:wikidata_id]]["descriptions"]["en"]["value"].upcase_first
+      end
     end
-    # @near_destinations.each do |city|
-    #   next if Destination.exists?(:wikidata_id => city[:wikidata_id])
-    #   new_city = Destination.new(name: city[:name], wikidata_id: city[:wikidata_id], latitude: city[:latitude], longitude: city[:longitude], description: city[:description])
-    #   new_city.save
-    # end
+    # using asyncron job to perform creation to not slow down loading
+    CreateDestinationsJob.perform_later(@near_destinations)
   end
 
   def show

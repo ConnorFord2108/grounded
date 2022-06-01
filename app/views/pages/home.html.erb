@@ -1,2 +1,23 @@
-<h1>Pages#home</h1>
-<p>Find me in app/views/pages/home.html.erb</p>
+<div class="container">
+  <h1>Pages#home 2</h1>
+  <p>Find me in app/views/pages/home.html.erb</p>
+
+<!--
+  <%# <% form_tag(destinations_path, :method => "get") do %>
+<form class="form-inline my-2 my-lg-0" action="/destinations" method="post">
+  <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search", name: "search>
+  <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+</form>
+-->
+
+<%= form_with url: destinations_path do |f| %>
+  <%= f.text_field :search_term %>
+  <%= f.number_field :max_travel_hours %>
+  <%= f.submit value="Search Grounded trips" %>
+<% end %>
+
+</div>
+
+<!--
+  <label for="text_field">Where do you want to go from?</label>
+-->

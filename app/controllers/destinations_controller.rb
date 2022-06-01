@@ -120,4 +120,5 @@ class DestinationsController < ApplicationController
     @max_travel_time = max_travel_time
 
   end
+
 end

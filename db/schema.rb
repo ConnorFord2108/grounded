@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_05_31_201917) do
+ActiveRecord::Schema.define(version: 2022_06_01_100504) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -23,6 +23,18 @@ ActiveRecord::Schema.define(version: 2022_05_31_201917) do
     t.float "latitude"
     t.float "longitude"
     t.string "wikidata_id"
+  end
+
+  create_table "recommendations", force: :cascade do |t|
+    t.bigint "destination_id", null: false
+    t.string "name"
+    t.text "description"
+    t.integer "num_reviews"
+    t.float "rating"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.string "photo_url"
+    t.index ["destination_id"], name: "index_recommendations_on_destination_id"
   end
 
   create_table "reviews", force: :cascade do |t|
@@ -60,6 +72,7 @@ ActiveRecord::Schema.define(version: 2022_05_31_201917) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "recommendations", "destinations"
   add_foreign_key "reviews", "travel_plans"
   add_foreign_key "travel_plans", "destinations"
   add_foreign_key "travel_plans", "users"

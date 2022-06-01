@@ -1,0 +1,12 @@
+
+
+<div class="container">
+  <% @recommendations.each do |recommendation| %>
+    <%= recommendation.name  %>  <br>
+    <%= recommendation.rating   %>  <br>
+    <%= recommendation.num_reviews   %>  <br>
+    <%= recommendation.photo_url   %>  <br>
+    <%= recommendation.description   %>  <br>
+  <% end %>
+
+</div>

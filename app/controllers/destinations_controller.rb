@@ -1,6 +1,7 @@
 require 'uri'
 require 'net/http'
 require 'openssl'
+require 'json'
 
 class DestinationsController < ApplicationController
   skip_before_action :authenticate_user!
@@ -41,6 +42,7 @@ class DestinationsController < ApplicationController
     # and as long as the destination is at least 25k from the start location (we do not want our list filled with sub-urbs to the starting location)
     # have temporarily limited destination difference to only 10k so that we can test if second API doing what we want
     response = http.request(request)
+
     JSON.parse(response.read_body)["data"].each do |city|
       next if Destination.exists?(:wikidata_id => city["wikiDataId"]) || city["distance"] < 10
       new_city = Destination.new(name: city["name"], wikidata_id: city["wikiDataId"], latitude: city["latitude"], longitude: city["longitude"], description: "Nice city")
@@ -118,7 +120,42 @@ class DestinationsController < ApplicationController
     #  should just change variable to @ directly above but cannot be bothered atm
     @city = city
     @max_travel_time = max_travel_time
-
   end
+
+  def show
+    @destination = Destination.last
+    longitude = @destination.longitude
+    latitude = @destination.latitude
+
+    url = URI("https://travel-advisor.p.rapidapi.com/attractions/list-by-latlng?longitude=#{longitude}&latitude=#{latitude}&lunit=km&currency=USD&lang=en_US")
+
+    http = Net::HTTP.new(url.host, url.port)
+    http.use_ssl = true
+    http.verify_mode = OpenSSL::SSL::VERIFY_NONE
+
+    request = Net::HTTP::Get.new(url)
+    request["X-RapidAPI-Host"] = 'travel-advisor.p.rapidapi.com'
+    request["X-RapidAPI-Key"] = '05e37c7835mshe38bce0736bf094p1546dejsnc66cc7f9539c'
+
+    response = http.request(request)
+    json_file = JSON.parse(response.read_body)['data']
+
+    json_file.each do |attraction|
+      # recommendations should contain name, rating, num_reviews, photo, description
+      if attraction.key?('rating') && attraction.key?('photo') && attraction.key?('name') && attraction.key?('description') && attraction.key?('num_reviews')
+        if attraction['rating'].to_f >= 4 && !(attraction['description'] == "")
+          recommendation = Recommendation.new
+          recommendation.destination_id = @destination.id
+          recommendation.name = attraction['name']
+          recommendation.rating = attraction['rating']
+          recommendation.num_reviews = attraction['num_reviews']
+          recommendation.photo_url = attraction['photo']['images']['small']['url']
+          recommendation.description = attraction['description']
+          recommendation.save
+        end
+      end
+      @recommendations = Recommendation.all
+    end
+    end
 
 end

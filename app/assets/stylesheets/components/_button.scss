@@ -7,10 +7,19 @@
   border-color: #008463;
   padding: 8px;
   width: 100px;
-  margin-right: 300px;
 }
 
 .button:hover {
   background-color: #008463;
+  color: rgba(0, 184, 138, 1);
+}
+
+
+.button-banner {
+  background-color: #008463;
   color: white;
+  padding: 8px;
+  width: 200px;
+  border-radius: 4px;
+  font-family: 'Montserrat', sans-serif;
 }

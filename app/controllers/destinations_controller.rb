@@ -66,6 +66,5 @@ class DestinationsController < ApplicationController
     http_2.use_ssl = true
     http_2.verify_mode = OpenSSL::SSL::VERIFY_NONE
     request_2 = Net::HTTP.post(url_2, body_params.to_json, {"Content-Type": 'application/json', "X-Application-Id": '2d711dce', "X-Api-Key": '8bd81cf8e989810db68666a3e90057db'})
-    raise
   end
 end

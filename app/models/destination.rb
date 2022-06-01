@@ -1,5 +1,6 @@
 class Destination < ApplicationRecord
   has_many :travel_plans, dependent: :destroy
+  has_many :recommendations, dependent: :destroy
   has_many :reviews, through: :travel_plans, dependent: :destroy
   validates :name, :description, presence: true
   geocoded_by :name

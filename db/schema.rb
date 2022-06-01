@@ -17,11 +17,12 @@ ActiveRecord::Schema.define(version: 2022_06_01_100504) do
 
   create_table "destinations", force: :cascade do |t|
     t.text "description"
-    t.string "address"
+    t.string "name"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.float "latitude"
     t.float "longitude"
+    t.string "wikidata_id"
   end
 
   create_table "recommendations", force: :cascade do |t|

@@ -118,5 +118,6 @@ class DestinationsController < ApplicationController
     #  should just change variable to @ directly above but cannot be bothered atm
     @city = city
     @max_travel_time = max_travel_time
+
   end
 end

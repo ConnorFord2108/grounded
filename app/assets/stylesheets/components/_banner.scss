@@ -1,0 +1,47 @@
+.banner {
+  background-size: cover;
+  background-position: center;
+  object-fit: fill;
+  padding: 150px 0;
+  width: 100%;
+  height: 600px;
+  display: flex;
+  align-items: center;
+  background-color:  linear-gradient(180deg, #00B88A 0%, #000000 100%);
+}
+
+.banner h1 {
+  margin: 0;
+  color: white;
+  text-shadow: 1px 1px 3px rgba(0,0,0,0.2);
+  font-size: 60px;
+  font-weight: bold;
+  font-family: 'Source Serif Pro', serif;
+}
+
+.banner p {
+  font-size: 20px;
+  color: white;
+  opacity: .7;
+  text-shadow: 1px 1px 3px rgba(0,0,0,0.2);
+}
+
+.form {
+  font-family: 'Montserrat', sans-serif;
+  color: #4D5058;
+  width: 699px;
+  border-radius: 10px
+}
+
+.input {
+  background-color: white;
+  color: #4D5058;
+  padding: 8px;
+  width: 200px;
+  border-radius: 4px;
+  font-family: 'Montserrat', sans-serif;
+}
+
+.container {
+  margin-left: 150px;
+}

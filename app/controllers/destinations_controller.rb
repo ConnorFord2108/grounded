@@ -206,9 +206,6 @@ class DestinationsController < ApplicationController
             recommendation.num_reviews = attraction['num_reviews']
             recommendation.photo_url = attraction['photo']['images']['small']['url']
             attraction['description'] == ""? recommendation.description = "Nice attraction close to #{@destination.name}" : recommendation.description = attraction['description']
-            # if recommendation.description = ""
-            #   recommendation.description = "Nice attraction close to #{@destination.name}"
-            # end
             recommendation.save
           end
         end
@@ -216,8 +213,11 @@ class DestinationsController < ApplicationController
     end
     @recommendations = @destination.recommendations
     @review = Review.new
-    if current_user.travel_plans.find { |plan| plan.destination_id == @destination.id } != nil
-      @travel_plan = current_user.travel_plans.find { |plan| plan.destination_id == @destination.id }
+    if user_signed_in?
+      if current_user.travel_plans.find { |plan| plan.destination_id == @destination.id } != nil
+        @travel_plan = current_user.travel_plans.find { |plan| plan.destination_id == @destination.id }
+      end
+    else
     end
   end
 end

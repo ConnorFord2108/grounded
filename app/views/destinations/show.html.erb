@@ -9,5 +9,10 @@
     <%= recommendation.description   %>  <br>
   <% end %>
 
+  <% if user_signed_in? %>
+    <%= link_to "Create travel plan", new_user_session_path, class: "button" %>
+  <% else %>
+   <%= link_to "Create travel plan", new_user_session_path, class: "button" %>
+  <% end %>
 
 </div>

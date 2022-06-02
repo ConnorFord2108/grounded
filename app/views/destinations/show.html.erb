@@ -9,9 +9,15 @@
     <%= recommendation.description   %>  <br>
   <% end %>
 
- <%= @destination.review %>
+<h1>Reviews</h1>
+<h3> <% @destination.reviews.each do |review| %>
+<%= review.comment %>
+<%= review.rating %>
+<% end %>
+</h3>
 
 <% if @travel_plan %>
+<h1>Add Review</h1>
 <div class="container-form mt-3" >
       <%= simple_form_for([@travel_plan, @review]) do |f| %>
         <%= f.input :rating %>

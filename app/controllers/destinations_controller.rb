@@ -172,8 +172,7 @@ class DestinationsController < ApplicationController
   end
 
   def show
-    @destination = Destination.last
-    # @destination.recommendations&.destroy_all
+    @destination = Destination.find(params[:id])
     longitude = @destination.longitude
     latitude = @destination.latitude
 
@@ -211,4 +210,7 @@ class DestinationsController < ApplicationController
       end
       @recommendations = @destination.recommendations
     end
+    @review = Review.new
+    @travel_plan = current_user.travel_plans.find { |plan| plan.destination_id == @destination.id }
+  end
 end

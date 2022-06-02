@@ -8,7 +8,9 @@ Rails.application.routes.draw do
   resources :travel_plans, only: [:index] do
     resources :reviews, only: [:create]
   end
-  post '/destinations', to: 'destinations#index'
+  # post '/destinations', to: 'destinations#index'
+  get '/destinations', to: 'destinations#index', as: :destinations
+  # post '/destinations/:search_term&:max_travel_hours', to: 'destinations#index'
 
   # require "sidekiq/web"
   # authenticate :user, ->(user) { user.admin? } do

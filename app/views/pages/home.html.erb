@@ -3,15 +3,26 @@
   <div class="container">
     <h1>Get away!</h1>
     <h1>Even if you are GROUNDED!</h1>
-<div class="form">
-  <%= form_with url: destinations_path do |f| %>
-  <%= f.text_field :search_term, placeholder: "Enter start location", class: "input"%>
-  <%= f.number_field :max_travel_hours, placeholder: "Travel time", class: "input"%>
-  <%= f.submit value="Search Grounded trips", class: "button-banner"  %>
-<% end %>
+    <div class="form">
+      <%= form_tag destinations_path, method: :get, class: "d-flex" do %>
+        <%= text_field_tag :search_term,
+          params[:search_term],
+          class: "form-control",
+          placeholder: "Enter start location"
+        %>
+        <%= number_field_tag :max_travel_hours,
+          params[:max_travel_hours],
+          class: "form-control",
+          placeholder: "Select maximum h of travel"
+        %>
+        <%= submit_tag "Search Grounded Trips", class: "button-banner" %>
+      <% end %>
+    </div>
+  </div>
 </div>
-</div>
-</div>
+
+
+
 
 
 

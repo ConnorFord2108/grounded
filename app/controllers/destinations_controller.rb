@@ -212,6 +212,7 @@ class DestinationsController < ApplicationController
       end
     end
     @recommendations = @destination.recommendations
+
     @review = Review.new
     if user_signed_in?
       if current_user.travel_plans.find { |plan| plan.destination_id == @destination.id } != nil

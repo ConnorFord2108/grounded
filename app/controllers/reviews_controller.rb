@@ -4,7 +4,8 @@ class ReviewsController < ApplicationController
   end
 
   def index
-    @reviews = Reviews.all
+    @user = current_user
+    @reviews = Review.all
   end
 
   def create

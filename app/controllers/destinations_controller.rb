@@ -15,7 +15,7 @@ class DestinationsController < ApplicationController
     max_travel_time = 3600 if max_travel_time > 3600
     # We currently destroy all destinations to make sure that we only show the ones close and not those created in previous requests
     # we will probably want to change this going forward so that we can add reviews etc + potentially reduce loading times
-    Destination.destroy_all
+    # Destination.destroy_all
 
     # creating the geocodes on the searched for starting city below, these are passed into the API request URL to get the list of potential destinations
     coordinates = Geocoder.search(city)
@@ -123,7 +123,7 @@ class DestinationsController < ApplicationController
   end
 
   def show
-    @destination = Destination.last
+    @destination = Destination.find(params[:id])
     longitude = @destination.longitude
     latitude = @destination.latitude
 
@@ -156,6 +156,7 @@ class DestinationsController < ApplicationController
       end
       @recommendations = Recommendation.all
     end
-    end
-
+    @review = Review.new
+    @travel_plan = current_user.travel_plans.find { |plan| plan.destination_id == @destination.id }
+  end
 end

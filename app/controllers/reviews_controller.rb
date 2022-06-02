@@ -9,11 +9,10 @@ class ReviewsController < ApplicationController
 
   def create
     @review = Review.new(review_params)
-    @review.user = current_user
     @travel_plan = TravelPlan.find(params[:travel_plan_id])
-    @review.travel_plan.destination = @destination
+    @review.travel_plan = @travel_plan
     if @review.save
-      redirect_to destination_path
+      redirect_to destination_path(@travel_plan.destination)
     else
       render :new
     end

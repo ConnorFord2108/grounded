@@ -9,4 +9,12 @@
     <%= recommendation.description   %>  <br>
   <% end %>
 
+<div class="container-form mt-3" >
+      <%= simple_form_for([@travel_plan, @review]) do |f| %>
+        <%= f.input :rating %>
+        <%= f.input :comment %>
+        <%= f.submit "Leave your review here", class: "btn btn-primary" %>
+      <% end %>
+    </div>
+
 </div>

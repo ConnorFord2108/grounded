@@ -22,6 +22,7 @@ ActiveRecord::Schema.define(version: 2022_06_01_123248) do
     t.datetime "updated_at", precision: 6, null: false
     t.float "latitude"
     t.float "longitude"
+    t.string "wikidata_id"
   end
 
   create_table "recommendations", force: :cascade do |t|

@@ -1,6 +1,7 @@
 
 
 <div class="container">
+
   <% @recommendations.each do |recommendation| %>
     <%= recommendation.name  %>  <br>
     <%= recommendation.rating   %>  <br>
@@ -30,6 +31,6 @@
   <% if user_signed_in? %>
     <%= link_to "Create travel plan", new_user_session_path, class: "button" %>
   <% else %>
-   <%= link_to "Create travel plan", new_user_session_path, class: "button" %>
+   <%= link_to "Log in and create travel plan", new_user_session_path, class: "button" %>
   <% end %>
 </div>

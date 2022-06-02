@@ -180,7 +180,6 @@ class DestinationsController < ApplicationController
     @destination = Destination.find(params[:id])
     longitude = @destination.longitude
     latitude = @destination.latitude
-
     if @destination.recommendations.empty?
       url = URI("https://travel-advisor.p.rapidapi.com/attractions/list-by-latlng?longitude=#{longitude}&latitude=#{latitude}&lunit=km&currency=USD&lang=en_US")
 
@@ -193,28 +192,33 @@ class DestinationsController < ApplicationController
       request["X-RapidAPI-Key"] = '05e37c7835mshe38bce0736bf094p1546dejsnc66cc7f9539c'
 
       response = http.request(request)
-      json_file = JSON.parse(response.read_body)['data']
 
+
+      json_file = JSON.parse(response.read_body)['data']
       json_file.each do |attraction|
         # recommendations should contain name, rating, num_reviews, photo, description
         if attraction.key?('rating') && attraction.key?('photo') && attraction.key?('name') && attraction.key?('description') && attraction.key?('num_reviews')
-        if attraction['rating'].to_f >= 4
-          recommendation = Recommendation.new
-          recommendation.destination_id = @destination.id
-          recommendation.name = attraction['name']
-          recommendation.rating = attraction['rating']
-          recommendation.num_reviews = attraction['num_reviews']
-          recommendation.photo_url = attraction['photo']['images']['small']['url']
-          recommendation.description = attraction['description']
-          recommendation.save
+          if attraction['rating'].to_f >= 4
+            recommendation = Recommendation.new
+            recommendation.destination_id = @destination.id
+            recommendation.name = attraction['name']
+            recommendation.rating = attraction['rating']
+            recommendation.num_reviews = attraction['num_reviews']
+            recommendation.photo_url = attraction['photo']['images']['small']['url']
+            attraction['description'] == ""? recommendation.description = "Nice attraction close to #{@destination.name}" : recommendation.description = attraction['description']
+            recommendation.save
+          end
         end
       end
     end
-  end
-  @recommendations = @destination.recommendations
+    @recommendations = @destination.recommendations
+
     @review = Review.new
-    if current_user.travel_plans.find { |plan| plan.destination_id == @destination.id } != nil
-      @travel_plan = current_user.travel_plans.find { |plan| plan.destination_id == @destination.id }
+    if user_signed_in?
+      if current_user.travel_plans.find { |plan| plan.destination_id == @destination.id } != nil
+        @travel_plan = current_user.travel_plans.find { |plan| plan.destination_id == @destination.id }
+      end
+    else
     end
   end
 end

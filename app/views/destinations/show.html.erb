@@ -1,4 +1,27 @@
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+  Add to calender
+</button>
 
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Travel Plan</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <%= simple_form_for([@destination, @travel_plan]) do |f| %>
+          <%= f.input :start_date, as: :date %>
+          <%= f.input :end_date, as: :date %>
+          <%= f.input :comment %>
+          <%= f.submit class: "btn btn-primary" %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
 
 <div class="container">
   <% @recommendations.each do |recommendation| %>
@@ -8,6 +31,4 @@
     <%= recommendation.photo_url   %>  <br>
     <%= recommendation.description   %>  <br>
   <% end %>
-
-
 </div>

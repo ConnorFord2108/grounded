@@ -166,6 +166,7 @@ class DestinationsController < ApplicationController
   end
 
   def show
+    @travel_plan = TravelPlan.new
     @destination = Destination.last
     # @destination.recommendations&.destroy_all
     longitude = @destination.longitude

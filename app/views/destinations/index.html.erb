@@ -1,7 +1,24 @@
 <div class="container">
-  <h1>There are <%= @travel_time_data.count %> grounded travel locations within <%= @max_travel_time/3600.to_f %> hours from <%= @city %> </h1>
-  <%= @travel_time_data.each do |dest| %>
-    <% destination_instance = @destinations.find { |i| i.id == dest["id"].to_i } %>
-    <h2><%= destination_instance.name %> is <%= dest["properties"][0]["travel_time"]/60 %> minutes from <%= @city %> by car </h2>
-  <% end %>
+  <div class="row">
+    <div class="col-4">
+      <div class="shadow-sm p-3 mb-5 bg-white h-100">
+        <h2>Placeholder for map and filters</h2>
+      </div>
+    </div>
+    <div class="col-8">
+        <h1>There are <%= @near_destinations.count %> grounded travel locations within <%= @max_travel_time/3600.to_f %> hours from <%= @city %> </h1>
+        <% @near_destinations.each do |dest| %>
+          <% destination_instance = Destination.find { |i| i.wikidata_id = dest[:wikidata_id] } %>
+          <%= link_to destination_path(destination_instance), :action => 'go' do %>
+            <div class="card-index">
+              <div class="card-index-infos">
+                <h2><%= dest[:name] %> is <%= dest[:travel_time]/60 %> minutes from <%= @city %> by car </h2>
+                <p>Description: <%= dest[:description] %></p>
+              </div>
+              <img src="<%= dest[:picture_url] %>" alt="Picture of <%= dest[:name] %>">
+            </div>
+          <% end %>
+        <% end %>
+    </div>
+  </div>
 </div>

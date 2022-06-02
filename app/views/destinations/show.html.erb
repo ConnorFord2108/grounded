@@ -9,6 +9,7 @@
     <%= recommendation.description   %>  <br>
   <% end %>
 
+<% if @travel_plan != nil %>
 <div class="container-form mt-3" >
       <%= simple_form_for([@travel_plan, @review]) do |f| %>
         <%= f.input :rating %>
@@ -16,6 +17,8 @@
         <%= f.submit "Leave your review here", class: "btn btn-primary" %>
       <% end %>
     </div>
+<% end %>
+
 
   <% if user_signed_in? %>
     <%= link_to "Create travel plan", new_user_session_path, class: "button" %>

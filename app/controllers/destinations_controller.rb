@@ -167,8 +167,13 @@ class DestinationsController < ApplicationController
         near_dest[:description] = data[near_dest[:wikidata_id]]["descriptions"]["en"]["value"].upcase_first
       end
     end
+      @near_destinations.each do |city|
+      next if Destination.exists?(:wikidata_id => city[:wikidata_id])
+      new_city = Destination.new(name: city[:name], wikidata_id: city[:wikidata_id], latitude: city[:latitude], longitude: city[:longitude], description: city[:description], picture_url: city[:picture_url])
+      new_city.save
+    end
     # using asyncron job to perform creation to not slow down loading
-    CreateDestinationsJob.perform_later(@near_destinations)
+    # CreateDestinationsJob.perform_later(@near_destinations)
   end
 
   def show
@@ -204,13 +209,12 @@ class DestinationsController < ApplicationController
             recommendation.save
           end
         end
-
-      end
-
       end
       @recommendations = @destination.recommendations
     end
     @review = Review.new
-    @travel_plan = current_user.travel_plans.find { |plan| plan.destination_id == @destination.id }
+    if current_user.travel_plans.find { |plan| plan.destination_id == @destination.id } != nil
+      @travel_plan = current_user.travel_plans.find { |plan| plan.destination_id == @destination.id }
+    end
   end
 end

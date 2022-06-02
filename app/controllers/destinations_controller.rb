@@ -198,19 +198,18 @@ class DestinationsController < ApplicationController
       json_file.each do |attraction|
         # recommendations should contain name, rating, num_reviews, photo, description
         if attraction.key?('rating') && attraction.key?('photo') && attraction.key?('name') && attraction.key?('description') && attraction.key?('num_reviews')
-
-          if attraction['rating'].to_f >= 4
-            recommendation = Recommendation.new
-            recommendation.destination_id = @destination.id
-            recommendation.name = attraction['name']
-            recommendation.rating = attraction['rating']
-            recommendation.num_reviews = attraction['num_reviews']
-            recommendation.photo_url = attraction['photo']['images']['small']['url']
-            recommendation.description = attraction['description']
-            recommendation.save
-          end
+        if attraction['rating'].to_f >= 4
+          recommendation = Recommendation.new
+          recommendation.destination_id = @destination.id
+          recommendation.name = attraction['name']
+          recommendation.rating = attraction['rating']
+          recommendation.num_reviews = attraction['num_reviews']
+          recommendation.photo_url = attraction['photo']['images']['small']['url']
+          recommendation.description = attraction['description']
+          recommendation.save
         end
       end
+    end
       @recommendations = @destination.recommendations
     end
     @review = Review.new

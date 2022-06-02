@@ -9,6 +9,8 @@
     <%= recommendation.description   %>  <br>
   <% end %>
 
+ <%= @destination.review %>
+
 <% if @travel_plan %>
 <div class="container-form mt-3" >
       <%= simple_form_for([@travel_plan, @review]) do |f| %>

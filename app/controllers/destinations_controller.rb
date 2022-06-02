@@ -167,37 +167,42 @@ class DestinationsController < ApplicationController
 
   def show
     @destination = Destination.last
+    # @destination.recommendations&.destroy_all
     longitude = @destination.longitude
     latitude = @destination.latitude
 
-    url = URI("https://travel-advisor.p.rapidapi.com/attractions/list-by-latlng?longitude=#{longitude}&latitude=#{latitude}&lunit=km&currency=USD&lang=en_US")
+    if @destination.recommendations.empty?
+      url = URI("https://travel-advisor.p.rapidapi.com/attractions/list-by-latlng?longitude=#{longitude}&latitude=#{latitude}&lunit=km&currency=USD&lang=en_US")
 
-    http = Net::HTTP.new(url.host, url.port)
-    http.use_ssl = true
-    http.verify_mode = OpenSSL::SSL::VERIFY_NONE
+      http = Net::HTTP.new(url.host, url.port)
+      http.use_ssl = true
+      http.verify_mode = OpenSSL::SSL::VERIFY_NONE
 
-    request = Net::HTTP::Get.new(url)
-    request["X-RapidAPI-Host"] = 'travel-advisor.p.rapidapi.com'
-    request["X-RapidAPI-Key"] = '05e37c7835mshe38bce0736bf094p1546dejsnc66cc7f9539c'
+      request = Net::HTTP::Get.new(url)
+      request["X-RapidAPI-Host"] = 'travel-advisor.p.rapidapi.com'
+      request["X-RapidAPI-Key"] = '05e37c7835mshe38bce0736bf094p1546dejsnc66cc7f9539c'
 
-    response = http.request(request)
-    json_file = JSON.parse(response.read_body)['data']
+      response = http.request(request)
+      json_file = JSON.parse(response.read_body)['data']
 
-    json_file.each do |attraction|
-      # recommendations should contain name, rating, num_reviews, photo, description
-      if attraction.key?('rating') && attraction.key?('photo') && attraction.key?('name') && attraction.key?('description') && attraction.key?('num_reviews')
-        if attraction['rating'].to_f >= 4 && !(attraction['description'] == "")
-          recommendation = Recommendation.new
-          recommendation.destination_id = @destination.id
-          recommendation.name = attraction['name']
-          recommendation.rating = attraction['rating']
-          recommendation.num_reviews = attraction['num_reviews']
-          recommendation.photo_url = attraction['photo']['images']['small']['url']
-          recommendation.description = attraction['description']
-          recommendation.save
+      json_file.each do |attraction|
+        # recommendations should contain name, rating, num_reviews, photo, description
+        if attraction.key?('rating') && attraction.key?('photo') && attraction.key?('name') && attraction.key?('description') && attraction.key?('num_reviews')
+          if attraction['rating'].to_f >= 4 && !(attraction['description'] == "")
+            recommendation = Recommendation.new
+            recommendation.destination_id = @destination.id
+            recommendation.name = attraction['name']
+            recommendation.rating = attraction['rating']
+            recommendation.num_reviews = attraction['num_reviews']
+            recommendation.photo_url = attraction['photo']['images']['small']['url']
+            recommendation.description = attraction['description']
+            recommendation.save
+          end
         end
+
       end
-      @recommendations = Recommendation.all
-    end
+
+      end
+      @recommendations = @destination.recommendations
     end
 end

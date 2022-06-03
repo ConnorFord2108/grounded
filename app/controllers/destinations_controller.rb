@@ -48,7 +48,14 @@ class DestinationsController < ApplicationController
     JSON.parse(response.read_body)["data"].each do |dest_response|
       next if dest_response["distance"] < minimum_distance_from_start
       @destinations << [name: dest_response["name"], wikidata_id: dest_response["wikiDataId"], latitude: dest_response["latitude"], longitude: dest_response["longitude"], description: "Nice city"]
+
+  #Mapbox markers
+    @markers = @destinations.map do |city| {
+      lat: city[0][:latitude],
+      lng: city[0][:longitude]
+      }
     end
+  end
 
     # BELOW WE ARE NOW MOVING INTO THE TRAVEL TIME API CALCULATING THE TRAVEL TIME FROM OUR START LOCATION TO POTENTIAL DESTINATIONS
     # The below part body params is the structure of the API request we need to submit
@@ -177,7 +184,7 @@ class DestinationsController < ApplicationController
   end
 
   def show
-    @travel_plan = TravelPlan.new
+    @travel_plan_new = TravelPlan.new
     @destination = Destination.find(params[:id])
     longitude = @destination.longitude
     latitude = @destination.latitude

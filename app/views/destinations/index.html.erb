@@ -1,20 +1,51 @@
 <div class="container">
+  <div class="row my-3">
+    <div class="col-12">
+      <div class="text-center ">
+        <h1>GROUNDED Locations!</h1>
+        <div class="form index-form">
+          <%= form_tag destinations_path, method: :get, class: "d-flex" do %>
+            <%= text_field_tag :search_term,
+              params[:search_term],
+              class: "form-control bg-white",
+              value: params[:search_term]
+            %>
+
+            <%= number_field_tag :max_travel_hours,
+              params[:max_travel_hours],
+              class: "form-control bg-white",
+              value: params[:max_travel_hours]
+            %>
+            <%= submit_tag "Update Grounded Trips", class: "button-banner" %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
   <div class="row">
     <div class="col-4">
       <div class="shadow-sm p-3 mb-5 bg-white h-100">
-        <h2>Placeholder for map and filters</h2>
+      <div style="width: 100%; height: 600px;"
+        data-controller="mapbox"
+        data-mapbox-markers-value="<%= @markers.to_json %>"
+        data-mapbox-api-key-value="<%= ENV['MAPBOX_API_KEY'] %>">
+      </div>
       </div>
     </div>
 
     <div class="col-8">
-        <h1>There are <%= @near_destinations.count %> grounded travel locations within <%= @max_travel_time/3600.to_f %> hours from <%= @city %> </h1>
         <% @near_destinations.each do |dest| %>
           <% destination_instance = Destination.find { |i| i.wikidata_id == dest[:wikidata_id] } %>
-          <%= link_to destination_path(destination_instance), :action => 'go' do %>
+          <%= link_to destination_path(destination_instance), :action => 'go', :class => "text-decoration-none" do %>
             <div class="card-index">
               <div class="card-index-infos">
-                <h2><%= dest[:name] %> is <%= dest[:travel_time]/60 %> minutes from <%= @city %> by car </h2>
-                <p>Description: <%= dest[:description] %></p>
+                <div class="card-index-infos-topline">
+                  <h3><%= dest[:name] %> </h3>
+                  <% hours = dest[:travel_time] / 3600 %>
+                  <% minutes = dest[:travel_time] % 3600 / 60 %>
+                  <p> <i class="fas fa-car-side"></i> <%= hours "h" if hours > 0 %> <%= minutes %> min</p>
+                </div>
+                <p><%= dest[:description] %></p>
               </div>
               <img src="<%= dest[:picture_url] %>" alt="Picture of <%= dest[:name] %>">
             </div>

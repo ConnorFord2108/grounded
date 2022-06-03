@@ -58,6 +58,10 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+  text-decoration: none;
+  color: black;
+  margin-top: 8px;
+  border-radius: 4px;
 }
 
 .card-index img {
@@ -80,6 +84,19 @@
   margin-top: 8px;
 }
 
-.card-index .card-index-infos {
-  padding: 16px;
+.card-index-infos {
+  padding: 8px;
+  flex-grow: 1;
+}
+
+
+.card-index-infos-topline {
+  display: flex;
+  justify-content: space-between;
+}
+
+.card-index-infos-topline p {
+  color: $grounded-green;
+  font-size: 20;
+  padding-left: 16px;
 }

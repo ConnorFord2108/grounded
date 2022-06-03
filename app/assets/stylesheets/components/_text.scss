@@ -1,0 +1,26 @@
+h1 {
+  color: rgba(18, 26, 26, 1.0);
+  font-size: 48px;
+  font-weight: bold;
+  font-family: 'Source Serif Pro', serif;
+}
+
+h2 {
+  font-family: 'Montserrat';
+  font-weight: lighter;
+  font-size: 24;
+}
+
+h3 {
+  color: $grounded-green;
+  font-size: 24;
+  font-weight: bold;
+  font-family: 'Source Serif Pro', serif;
+}
+
+p {
+  font-family: 'Montserrat';
+  color: rgba(77, 80, 88, 1.0);
+  font-weight: normal;
+  font-size: 16;
+}

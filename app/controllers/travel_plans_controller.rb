@@ -12,7 +12,7 @@ class TravelPlansController < ApplicationController
     @travel_plan.user = current_user
     @travel_plan.destination = Destination.find(params[:destination_id])
     if @travel_plan.save
-      redirect_to destination_path
+      redirect_to travel_plans_path
     else
       render :new
     end

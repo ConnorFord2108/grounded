@@ -177,6 +177,7 @@ class DestinationsController < ApplicationController
   end
 
   def show
+    @travel_plan = TravelPlan.new
     @destination = Destination.find(params[:id])
     longitude = @destination.longitude
     latitude = @destination.latitude

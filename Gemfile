@@ -70,3 +70,4 @@ gem 'json', '~> 2.6', '>= 2.6.2'
 # adding sidekiq to run asyncron processes
 gem 'sidekiq'
 gem 'sidekiq-failures', '~> 1.0'
+gem 'mapbox-rails'

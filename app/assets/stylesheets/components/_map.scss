@@ -1,0 +1,11 @@
+main-container {
+  display: flex;
+}
+
+#map {
+  height: 100vh;
+}
+
+.cards {
+  flex-grow: 1;
+}

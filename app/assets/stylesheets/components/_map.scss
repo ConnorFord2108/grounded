@@ -1,9 +1,12 @@
-main-container {
+.main-container {
   display: flex;
+  position: sticky;
 }
 
-#map {
+.col-4 {
   height: 100vh;
+  position: sticky;
+  top: 0;
 }
 
 .cards {

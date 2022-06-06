@@ -14,7 +14,7 @@
 
 .cards {
   display: flex;
-  justify-content:space-between;
+  justify-content: space-between;
   align-items: flex-end;
   height: 200px;
   width: 900px;
@@ -54,7 +54,7 @@
   overflow: hidden;
   height: 120px;
   background: white;
-  box-shadow: 0 0 15px rgba(0,0,0,0.2);
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
   display: flex;
   align-items: start;
   justify-content: space-between;
@@ -106,7 +106,7 @@
   width: 30%;
 }
 
-.card-trip > img {
+.card-trip>img {
   width: 100%;
 }
 
@@ -123,4 +123,18 @@
   background-position: center;
   background-size: cover;
   position: relative;
+
+  
+.card-show {
+  overflow: hidden;
+  background: white;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  text-decoration: none;
+  color: black;
+  margin-top: 40px;
+  border-radius: 4px;
+  padding: 25px 50px;
 }

@@ -211,15 +211,24 @@ class DestinationsController < ApplicationController
             recommendation.destination_id = @destination.id
             recommendation.name = attraction['name']
             recommendation.rating = attraction['rating']
+            recommendation.longitude = attraction['longitude']
+            recommendation.latitude = attraction['latitude']
             recommendation.num_reviews = attraction['num_reviews']
             recommendation.photo_url = attraction['photo']['images']['small']['url']
             attraction['description'] == ""? recommendation.description = "Nice attraction close to #{@destination.name}" : recommendation.description = attraction['description']
+            recommendation.longitude = attraction['longitude']
+            recommendation.latitude = attraction['latitude']
             recommendation.save
           end
         end
       end
     end
     @recommendations = @destination.recommendations
+    @markers = @recommendations.map do |place| {
+      lat: place[:latitude],
+      lng: place[:longitude]
+      }
+    end
 
     @review = Review.new
     if user_signed_in?

@@ -1,20 +1,28 @@
 <div class="container">
 
-    <div class="col-12">
-        <% @recommendations.each do |recommendation| %>
-            <div class="card-show">
-              <div class="card-index-infos">
-                <div class="card-index-infos-topline">
-                  <h3><%= recommendation.name %> </h3>
-                  <% hours = recommendation.rating / 3600 %>
-                  <% minutes = recommendation.num_reviews % 3600 / 60 %>
-                </div>
-                <p><%= recommendation.description %></p>
+  <div class="col-12">
+    <%= @destination.name %>
+    <%= @image_link_city %>
+   <img src = <%= @image_link_city %> alt ="Not show">
+  </div>
+
+
+
+  <div class="col-12">
+      <% @recommendations.each do |recommendation| %>
+          <div class="card-show">
+            <div class="card-index-infos">
+              <div class="card-index-infos-topline">
+                <h3><%= recommendation.name %> </h3>
+                <% hours = recommendation.rating / 3600 %>
+                <% minutes = recommendation.num_reviews % 3600 / 60 %>
               </div>
-              <img src="<%= recommendation.photo_url %>" alt="Picture of <%= recommendation.name %>">
+              <p><%= recommendation.description %></p>
             </div>
-          <% end %>
-    </div>
+            <img src="<%= recommendation.photo_url %>" alt="Picture of <%= recommendation.name %>">
+          </div>
+        <% end %>
+  </div>
 
 <h1>Reviews</h1>
 <h3> <% @destination.reviews.each do |review| %>

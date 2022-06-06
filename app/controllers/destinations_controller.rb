@@ -225,11 +225,11 @@ class DestinationsController < ApplicationController
       end
     end
     @recommendations = @destination.recommendations
-    # @markers = @recommendations.map do |city| {
-    #   lat: city[0][:latitude],
-    #   lng: city[0][:longitude]
-    #   }
-    # end
+    @markers = @recommendations.map do |place| {
+      lat: place[:latitude],
+      lng: place[:longitude]
+      }
+    end
 
     @review = Review.new
     if user_signed_in?

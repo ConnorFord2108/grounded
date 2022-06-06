@@ -8,6 +8,16 @@
     <%= recommendation.description   %>  <br>
   <% end %>
 
+  <div class="col-4">
+    <div class="shadow-sm p-3 mb-5 bg-white h-100">
+      <div style="width: 100%; height: 600px;"
+        data-controller="mapbox"
+        data-mapbox-markers-value="<%= @markers.to_json %>"
+        data-mapbox-api-key-value="<%= ENV['MAPBOX_API_KEY'] %>">
+      </div>
+    </div>
+  </div>
+
 <h1>Reviews</h1>
 <h3> <% @destination.reviews.each do |review| %>
 <%= review.comment %>

@@ -24,12 +24,29 @@
   </div>
   <div class="row">
     <div class="col-4">
-      <div class="shadow-sm p-3 mb-5 bg-white h-100">
-      <div style="width: 100%; height: 600px;"
-        data-controller="mapbox"
-        data-mapbox-markers-value="<%= @markers.to_json %>"
-        data-mapbox-api-key-value="<%= ENV['MAPBOX_API_KEY'] %>">
-      </div>
+      <div class="filter-and-map-box">
+        <div class="filter-box">
+        <form action="/destinations" method="GET">
+          <select name="ordering_options">
+            <option value="">How do you want to sort?</option>
+            <% @sort_options.each do |sort_option| %>
+              <option value="<%= sort_option %>"><%= sort_option %></option>
+            <% end %>
+          </select>
+          <select name="category_filter">
+            <option value="">What are you looking for?</option>
+            <% @filter_options.each do |filter_option| %>
+              <option value="<%= filter_option %>"><%= filter_option %></option>
+            <% end %>
+          </select>
+          <input type="submit" value="Adjust search">
+        </form>
+        </div>
+        <div class="map-box" style="width: 100%; height: 600px;"
+          data-controller="mapbox"
+          data-mapbox-markers-value="<%= @markers.to_json %>"
+          data-mapbox-api-key-value="<%= ENV['MAPBOX_API_KEY'] %>">
+        </div>
       </div>
     </div>
 

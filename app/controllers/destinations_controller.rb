@@ -10,10 +10,12 @@ require "nokogiri"
 class DestinationsController < ApplicationController
   skip_before_action :authenticate_user!
   def index
-    @city = params[:search_term]
+    session[:search_term] = params[:search_term] unless params[:search_term].nil?
+    session[:max_travel_hours] = params[:max_travel_hours] unless params[:max_travel_hours].nil?
+    @city = session[:search_term]
 
     # API later takes time in seconds while user inputs in hours, so converting below
-    @max_travel_time = params[:max_travel_hours].to_i * 3600
+    @max_travel_time = session[:max_travel_hours].to_i * 3600
 
     # free plan limits travel time to one hour, so resetting to max this value below for now...
     @max_travel_time = 3600 if @max_travel_time > 3600
@@ -172,11 +174,14 @@ end
         near_dest[:description] = data[near_dest[:wikidata_id]]["descriptions"]["en"]["value"].upcase_first
       end
     end
-      @near_destinations.each do |city|
+
+    @near_destinations.each do |city|
       next if Destination.exists?(:wikidata_id => city[:wikidata_id])
       new_city = Destination.new(name: city[:name], wikidata_id: city[:wikidata_id], latitude: city[:latitude], longitude: city[:longitude], description: city[:description], picture_url: city[:picture_url])
       new_city.save
     end
+
+
     # using asyncron job to perform creation to not slow down loading
     # CreateDestinationsJob.perform_later(@near_destinations)
     @markers = @near_destinations.map do |city| {
@@ -187,6 +192,9 @@ end
       image_url: helpers.asset_url("Vector (3).svg"),
       }
     end
+
+    @filter_options = ["Nightlife", "Shopping", "Culture", "Eating", "Art", "Cheap"]
+    @sort_options = ["Travel Time (descending)", "Travel Time (ascending)", "Rating (descending)", "Rating (ascending)"]
   end
 
   def show

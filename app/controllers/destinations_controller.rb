@@ -186,22 +186,10 @@ class DestinationsController < ApplicationController
   end
 
   def show
-    # -------- This section is for displaying image of city. Image is scraped from Wikipedia ----------
-
-    url = "https://no.wikipedia.org/wiki/Toledo"
-
-    html_file = URI.open(url).read
-    html_doc = Nokogiri::HTML(html_file)
-    html_wikipedia = html_doc.search(".image img")[0]
-    #  Picks the next picture if the first picture is a book:
-    if "Question book-new.svg" == html_wikipedia.attribute("alt").value
-      html_wikipedia = html_doc.search(".image img")[1]
-    end
-    @image_link_city = html_wikipedia.attribute("src")
+    @travel_plan_new = TravelPlan.new
+    @destination = Destination.find(params[:id])
 
     # ------------- Code to display each recommendation----------
-    @travel_plan_new = TravelPlan.new
-
     longitude = @destination.longitude
     latitude = @destination.latitude
     if @destination.recommendations.empty?

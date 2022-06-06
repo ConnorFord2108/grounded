@@ -1,84 +1,90 @@
 <div class="container">
 
-  <div class="col-12">
-    <%= @destination.name %>
-    <%= @image_link_city %>
-   <img src = <%= @image_link_city %> alt ="Not show">
-  </div>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-4 justify-content-md-center">
+         <img src="" width=100% alt ="Picture could not load"  >
+      </div>
+      <div class="col-lg-4 justify-content-md-center">
+      <div class="shadow-sm p-3 mb-5 bg-white h-100">
+        <div style="width: 100%; height: 600px;"
+          data-controller="mapbox"
+          data-mapbox-markers-value="<%= @markers.to_json %>"
+          data-mapbox-api-key-value="<%= ENV['MAPBOX_API_KEY'] %>">
+        </div>
+      </div>
+    </div>
+    </div>
 
 
 
-  <div class="col-12">
-      <% @recommendations.each do |recommendation| %>
-          <div class="card-show">
-            <div class="card-index-infos">
-              <div class="card-index-infos-topline">
-                <h3><%= recommendation.name %> </h3>
-                <% hours = recommendation.rating / 3600 %>
-                <% minutes = recommendation.num_reviews % 3600 / 60 %>
+    <div class="row justify-content-md-center">
+      <div class="col-8">
+        <% @recommendations.each do |recommendation| %>
+            <div class="card-show">
+              <div class="card-index-infos">
+                <div class="card-index-infos-topline">
+                  <h3><%= recommendation.name %> </h3>
+                  <% hours = recommendation.rating / 3600 %>
+                  <% minutes = recommendation.num_reviews % 3600 / 60 %>
+                </div>
+                <p><%= recommendation.description %></p>
               </div>
-              <p><%= recommendation.description %></p>
+              <img src="<%= recommendation.photo_url %>" alt="Picture of <%= recommendation.name %>">
             </div>
-            <img src="<%= recommendation.photo_url %>" alt="Picture of <%= recommendation.name %>">
-          </div>
-        <% end %>
-  </div>
-
-  <div class="col-5">
-    <div class="shadow-sm p-3 mb-5 bg-white h-100">
-      <div style="width: 100%; height: 600px;"
-        data-controller="mapbox"
-        data-mapbox-markers-value="<%= @markers.to_json %>"
-        data-mapbox-api-key-value="<%= ENV['MAPBOX_API_KEY'] %>">
+          <% end %>
       </div>
     </div>
-  </div>
 
-<h1>Reviews</h1>
-<h3> <% @destination.reviews.each do |review| %>
-<%= review.comment %>
-<%= review.rating %>
-<% end %>
-</h3>
 
-<% if @travel_plan %>
-<h1>Add Review</h1>
-<div class="container-form mt-3" >
-      <%= simple_form_for([@travel_plan, @review]) do |f| %>
-        <%= f.input :rating %>
-        <%= f.input :comment %>
-        <%= f.submit "Leave your review here", class: "btn btn-primary" %>
-      <% end %>
-    </div>
-<% end %>
-<div>
-  <% if user_signed_in? %>
-<!-- Button trigger modal -->
-    <button class="button" data-bs-toggle="modal" data-bs-target="#exampleModal">
-      Add to calender
-    </button>
 
-<!-- Modal -->
-    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Travel Plan</h5>
-        <button type="button" class="btn btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <%= simple_form_for([@destination, @travel_plan_new]) do |f| %>
-          <%= f.input :start_date, as: :date %>
-          <%= f.input :end_date, as: :date %>
-          <%= f.input :comment %>
-          <%= f.submit "Create travel plan", class: "btn btn-success" %>
-        <% end %>
-      </div>
-    </div>
-    </div>
-    </div>
-  <% else %>
-    <%= link_to "Log in", new_user_session_path, class: "button" %>
+  <h1>Reviews</h1>
+  <h3> <% @destination.reviews.each do |review| %>
+  <%= review.comment %>
+  <%= review.rating %>
   <% end %>
-</div>
-<br>
+  </h3>
+
+  <% if @travel_plan %>
+  <h1>Add Review</h1>
+  <div class="container-form mt-3" >
+        <%= simple_form_for([@travel_plan, @review]) do |f| %>
+          <%= f.input :rating %>
+          <%= f.input :comment %>
+          <%= f.submit "Leave your review here", class: "btn btn-primary" %>
+        <% end %>
+      </div>
+  <% end %>
+  <div>
+    <% if user_signed_in? %>
+  <!-- Button trigger modal -->
+      <button class="button" data-bs-toggle="modal" data-bs-target="#exampleModal">
+        Add to calender
+      </button>
+
+  <!-- Modal -->
+      <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Travel Plan</h5>
+          <button type="button" class="btn btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <%= simple_form_for([@destination, @travel_plan_new]) do |f| %>
+            <%= f.input :start_date, as: :date %>
+            <%= f.input :end_date, as: :date %>
+            <%= f.input :comment %>
+            <%= f.submit "Create travel plan", class: "btn btn-success" %>
+          <% end %>
+        </div>
+      </div>
+      </div>
+      </div>
+    <% else %>
+      <%= link_to "Log in", new_user_session_path, class: "button" %>
+    <% end %>
+  </div>
+  <br>
+
+  </div>

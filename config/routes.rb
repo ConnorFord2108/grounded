@@ -11,6 +11,7 @@ Rails.application.routes.draw do
   end
   # post '/destinations', to: 'destinations#index'
   get '/destinations', to: 'destinations#index', as: :destinations
+  post '/travel_plans', to: 'travel_plans#index'
   # post '/destinations/:search_term&:max_travel_hours', to: 'destinations#index'
 
   # require "sidekiq/web"

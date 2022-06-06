@@ -1,7 +1,9 @@
 class TravelPlan < ApplicationRecord
   belongs_to :user
   belongs_to :destination
-  validates :start_date, :end_date, presence: true
+  validates :start_date, :end_date, presence: true, allow_blank: false
+  validate :end_date_is_after_start_date
+  validate :start_date_cannot_be_in_the_past
   has_many :reviews
 
   private

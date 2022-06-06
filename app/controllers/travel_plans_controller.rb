@@ -8,13 +8,17 @@ class TravelPlansController < ApplicationController
   end
 
   def create
-    @travel_plan = TravelPlan.new(plan_params)
-    @travel_plan.user = current_user
-    @travel_plan.destination = Destination.find(params[:destination_id])
-    if @travel_plan.save
-      redirect_to travel_plans_path
+    @travel_plan_new = TravelPlan.new(plan_params)
+    @travel_plan_new.user = current_user
+    @destination = Destination.find(params[:destination_id])
+    @recommendations = @destination.recommendations
+    @review = Review.new()
+    @travel_plan_new.destination = Destination.find(params[:destination_id])
+    if @travel_plan_new.save
+      redirect_to travel_plans_path(@travel_plan_new)
     else
-      render :new
+      # redirect_to destination_path(@travel_plan.destination)
+      render "destinations/show"
     end
   end
 

@@ -71,7 +71,7 @@
 }
 
 .card-index-p {
-  font-size: 12px;
+  font-size: 16px;
   line-height: 1.4;
   opacity: .7;
   margin-bottom: 0;
@@ -81,6 +81,10 @@
 .card-index-infos {
   padding: 8px;
   flex-grow: 1;
+  height: 100%;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
 }
 
 

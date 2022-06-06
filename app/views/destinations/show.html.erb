@@ -33,10 +33,10 @@
 <% end %>
 </h3>
 
-<% if @travel_plan %>
+<% if @travel_plan_new.id  %>
 <h1>Add Review</h1>
 <div class="container-form mt-3" >
-      <%= simple_form_for([@travel_plan, @review]) do |f| %>
+      <%= simple_form_for([@travel_plan_new, @review]) do |f| %>
         <%= f.input :rating %>
         <%= f.input :comment %>
         <%= f.submit "Leave your review here", class: "btn btn-primary" %>
@@ -51,17 +51,21 @@
     </button>
 
 <!-- Modal -->
-    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<% if params["action"] == "create" %>
+    <div class="modal fade show" data-controller="modal" data-modal-target="container" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" style="display: block;" aria-modal="true" role="dialog">
+<% else %>
+    <div class="modal fade" data-controller="modal" data-modal-target="container" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" >
+<% end %>
     <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="exampleModalLabel">Travel Plan</h5>
-        <button type="button" class="btn btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        <button type="button" class="btn btn-close" data-action="click->modal#close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
         <%= simple_form_for([@destination, @travel_plan_new]) do |f| %>
-          <%= f.input :start_date, as: :date %>
-          <%= f.input :end_date, as: :date %>
+          <%= f.input :start_date, as: :string, input_html: {class: "datepicker", required: true} %>
+          <%= f.input :end_date, as: :string, input_html: {class: "datepicker", required: true} %>
           <%= f.input :comment %>
           <%= f.submit "Create travel plan", class: "btn btn-success" %>
         <% end %>

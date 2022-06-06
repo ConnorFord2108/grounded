@@ -1,12 +1,20 @@
 <div class="container">
 
-  <% @recommendations.each do |recommendation| %>
-    <%= recommendation.name  %>  <br>
-    <%= recommendation.rating   %>  <br>
-    <%= recommendation.num_reviews   %>  <br>
-    <%= recommendation.photo_url   %>  <br>
-    <%= recommendation.description   %>  <br>
-  <% end %>
+    <div class="col-12">
+        <% @recommendations.each do |recommendation| %>
+            <div class="card-show">
+              <div class="card-index-infos">
+                <div class="card-index-infos-topline">
+                  <h3><%= recommendation.name %> </h3>
+                  <% hours = recommendation.rating / 3600 %>
+                  <% minutes = recommendation.num_reviews % 3600 / 60 %>
+                </div>
+                <p><%= recommendation.description %></p>
+              </div>
+              <img src="<%= recommendation.photo_url %>" alt="Picture of <%= recommendation.name %>">
+            </div>
+          <% end %>
+    </div>
 
   <div class="col-4">
     <div class="shadow-sm p-3 mb-5 bg-white h-100">

@@ -3,6 +3,8 @@ require 'net/http'
 require 'openssl'
 require 'json'
 require 'digest'
+require "open-uri"
+require "nokogiri"
 
 
 class DestinationsController < ApplicationController
@@ -190,6 +192,8 @@ end
   def show
     @travel_plan_new = TravelPlan.new
     @destination = Destination.find(params[:id])
+
+    # ------------- Code to display each recommendation----------
     longitude = @destination.longitude
     latitude = @destination.latitude
     if @destination.recommendations.empty?

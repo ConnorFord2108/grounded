@@ -43,11 +43,17 @@
                   <h3><%= dest[:name] %> </h3>
                   <% hours = dest[:travel_time] / 3600 %>
                   <% minutes = dest[:travel_time] % 3600 / 60 %>
-                  <p> <i class="fas fa-car-side"></i> <%= hours "h" if hours > 0 %> <%= minutes %> min</p>
+                  <p class="card-index-p"> <i class="fas fa-car-side"></i> <%= hours "h" if hours > 0 %> <%= minutes %> min</p>
                 </div>
-                <p><%= dest[:description] %></p>
+                <p class="card-index-p"><%= dest[:description] %></p>
+                <p class="card-index-p"><i class="fas fa-tag"></i>Tags to be added</p>
               </div>
-              <img src="<%= dest[:picture_url] %>" alt="Picture of <%= dest[:name] %>">
+              <div class="card-index-img-div" style="background-image: url(<%= dest[:picture_url] %>);">
+                <div class="card-index-star-holder">
+                  <% @rating=4.5 %>
+                  <%= render 'shared/stars' %>
+                </div>
+              </div>
             </div>
           <% end %>
         <% end %>

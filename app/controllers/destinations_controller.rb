@@ -203,6 +203,7 @@ class DestinationsController < ApplicationController
 
 
       json_file = JSON.parse(response.read_body)['data']
+      raise
       json_file.each do |attraction|
         # recommendations should contain name, rating, num_reviews, photo, description
         if attraction.key?('rating') && attraction.key?('photo') && attraction.key?('name') && attraction.key?('description') && attraction.key?('num_reviews')
@@ -211,6 +212,8 @@ class DestinationsController < ApplicationController
             recommendation.destination_id = @destination.id
             recommendation.name = attraction['name']
             recommendation.rating = attraction['rating']
+            recommendation.longitude = attraction['longitude']
+            recommendation.latitude = attraction['latitude']
             recommendation.num_reviews = attraction['num_reviews']
             recommendation.photo_url = attraction['photo']['images']['small']['url']
             attraction['description'] == ""? recommendation.description = "Nice attraction close to #{@destination.name}" : recommendation.description = attraction['description']

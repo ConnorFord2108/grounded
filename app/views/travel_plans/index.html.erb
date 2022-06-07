@@ -1,17 +1,58 @@
-<div class="container">
-  <h1>ALL YOUR TRAVEL PLANS</h1>
-  <div class="row">
+<div class="banner" style="background-image: linear-gradient(rgba(0,184,138,0.4),rgba(0,0,0,0.4)), url(https://i.imgur.com/5O1JXmm.jpg);">
+  <div class="container">
+    <h1 class="text-center">GROUNDED!</h1>
+    <%# <p>You don’t want to fly but still want to have an unforgettable weekend getaway.</p>
+    <p>Grounded can help you find the perfect destination within a travel time of your choice.</p> %>
+  </div>
+</div>
+
+<div class="container travel-plan-container my-5">
+  <%= render :partial => 'flash_messages', :flash => flash %>
+  <h2>ALL YOUR TRAVEL PLANS</h2>
+  <div class="card-plans my-5">
     <% @travel_plans.each do |travel_plan| %>
-    <div class="col-3">
       <div>
-        <img src="<%= travel_plan.destination[:picture_url] %>" alt="Picture of <%= travel_plan.destination[:name] %>">
-      </div>
-      <div>
-        <h2><%= travel_plan.start_date.strftime("%d.%m.%Y") %></h2>
-        <h2><%= travel_plan.end_date.strftime("%d.%m.%Y") %></h2>
-        <h2><%= travel_plan.comment %></h2>
+        <div class="card-plan">
+          <% if travel_plan.destination[:picture_url].present? %>
+            <img src="<%= travel_plan.destination[:picture_url] %>" alt="Picture of <%= travel_plan.destination[:name] %>">
+          <% else %>
+            <img src="https://www.banffjaspercollection.com/Brewster/media/Images/Brewster-Sightseeing/Gallery/GI-Sightseeing-Moraine-Lake.jpg" alt="GROUNDED">
+          <% end %>
+          <div class="plan-body">
+            <div>
+              <h3><%= travel_plan.destination.name %></h3>
+              <p>Start Date: <%= travel_plan.start_date.strftime("%d.%m.%Y") %></p>
+              <p>End Date: <%= travel_plan.end_date.strftime("%d.%m.%Y") %></p>
+              <p>Comment: <%= travel_plan.comment %></p>
+            </div>
+            <div class="button-index">
+              <%= link_to "Delete", travel_plan_path(travel_plan), method: :delete, class: "btn btn-success w-100", data: {confirm: "Are you sure you want to remove this destination?"} %>
+              <br>
+              <button class="btn btn-success w-100 mt-2" data-bs-toggle="modal" data-bs-target="#modal-<%= travel_plan.id %>">
+                Edit
+              </button>
+              <div class="modal fade" id="modal-<%= travel_plan.id %>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="exampleModalLabel">Travel Plan</h5>
+                        <button type="button" class="btn btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                      <%= simple_form_for travel_plan do |f| %>
+                        <%= f.input :start_date, as: :string, required: false, input_html: {class: "datepicker"}%>
+                        <%= f.input :end_date, as: :string, required: false, input_html: {class: "datepicker"} %>
+                        <%= f.input :comment %>
+                        <%= f.submit "Edit travel plan", class: "btn btn-success" %>
+                      <% end %>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     <% end %>
-    </div>
   </div>
 </div>

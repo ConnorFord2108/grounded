@@ -130,3 +130,41 @@
 .card-show-infos {
   margin: 20px;
 }
+
+.travel-plan-container {
+  padding: 0 8em 0 8em;
+}
+
+.card-plans {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3em;
+}
+
+.card-plan {
+  background: white;
+  box-shadow: 0 0 15px rgba(0,0,0,0.2);
+
+  img {
+    height: 250px;
+    width: 100%;
+    object-fit: cover;
+    transition: transform .2s;
+  }
+
+  img:hover {
+    transform: scale(1.5);
+  }
+
+  .plan-body {
+    padding: 1em;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+}
+
+.container h2 {
+  color: #D8B384;
+  font-weight: bold;
+}

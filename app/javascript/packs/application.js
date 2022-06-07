@@ -14,6 +14,8 @@ ActiveStorage.start()
 
 import "controllers"
 import "bootstrap"
+global.toastr = require("toastr")
+
 
 import { Application } from 'stimulus'
 import { definitionsFromContext } from 'stimulus/webpack-helpers'

@@ -6,7 +6,7 @@ Rails.application.routes.draw do
     resources :travel_plans, only: [:create, :new]
   end
 
-  resources :travel_plans, only: [:index, :destroy] do
+  resources :travel_plans, only: [:index, :destroy, :update] do
     resources :reviews, only: [:create]
   end
   # post '/destinations', to: 'destinations#index'

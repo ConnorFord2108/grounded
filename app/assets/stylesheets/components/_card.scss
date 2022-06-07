@@ -134,23 +134,36 @@
   box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
   border-radius: 4px;
   margin: 20px;
+  height: 600px;
+  overflow: hidden;
 }
 
 .card-show-v2 img {
-  width: 100%;
+  width: 90%;
+  overflow: hidden;
   padding: 20px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
 
 }
 
 .text-cards-show {
   margin: 20px;
+  padding-bottom: 20px;
+  // overflow: hidden;
+  text-overflow: ellipsis;
+  margin: 10%;
 }
 
-.show-card-description {
-  display: inline-block;
-  white-space: nowrap;
+.decription-text-show {
   overflow: hidden;
   text-overflow: ellipsis;
-  max-width: 20ch;
-  text-align: left;
+  display: -webkit-box;
+  -webkit-line-clamp: 6;
+  /* number of lines to show */
+  line-clamp: 6;
+  -webkit-box-orient: vertical;
+
+
 }

@@ -1,33 +1,24 @@
   <div class="container">
-
     <div class="row justify-content-center">
-
-      <div class="col-4">
-        <div row>
-          <h1><%= @destination.name %> </h1>
-        </div>
-        <div row>
-          <%= @destination.description %>
-        </div>
-        <div row>
-          <img src="" width=80% alt ="Picture could not load">
-        </div>
-      </div>
-      <div class="col-4 justify-content-center">
-        <div class="shadow-sm p-3 mb-5 bg-white justify-content-md-center width: 70%">
-          <div style="width: 100%; height: 600px;"
-            data-controller="mapbox"
-            data-mapbox-markers-value="<%= @markers.to_json %>"
-            data-mapbox-api-key-value="<%= ENV['MAPBOX_API_KEY'] %>">
-          </div>
-        </div>
-      </div>
-
+      <h1><%= @destination.name %> </h1>
+      <%= @destination.description %>
+      <img src=<%=@destination.picture_url%> width=80% alt ="Picture could not load">
     </div>
 
-    <div class="row justify-content-md-center">
-      <div class="col-8">
+    <!-- ------------- DISPLAYION ONLY 3 RECOMMENDATIONS --------------->
 
+    <div class="row justify-content-md-center">
+        <div class="row justify-content-center m-0 p-0">
+          <div class="show-banner" style="background-image: url(<%=@destination.picture_url%>)">
+          <div id="show-star-container">
+            <h1><%= @destination.name %> </h1>
+            <h4><%= @destination.description %></h4>
+            <% @rating=4.5 %>
+            <%= render 'shared/showstars' %>
+          </div>
+        </div>
+
+      <div class="col-8">
         <div class="row justify-content-md-center">
           <% @recommendations.each do |recommendation| %>
               <div class="card-show">
@@ -36,77 +27,113 @@
                     <h3><%= recommendation.name %> </h3>
                     <% hours = recommendation.rating / 3600 %>
                     <% minutes = recommendation.num_reviews % 3600 / 60 %>
+      <% counter = 0 %>
+      <% for recommendation in @recommendations  %>
+
+        <div class="col-4">
+          <div class="card-show-v2">
+            <div class="f-lex justify-content-center">
+
+              <img src="<%= recommendation.photo_url %>" class="rounded" alt="Picture of <%= recommendation.name %>" >
+
+              <div class="text-cards-show">
+                <h2>
+                  <span style="
+                      /* display:inline-block;
+                      white-space: nowrap; */
+                      overflow: hidden;
+                      text-overflow: ellipsis;
+                      max-width: 20ch;"><h3><%= recommendation.name %></h3>
+                  </span>
+                </h2>
+                <p>
+                  <div class="decription-text-show">
+                    <%= recommendation.description %>
                   </div>
-                  <p><%= recommendation.description %></p>
-                </div>
-                <img src="<%= recommendation.photo_url %>" class="rounded" alt="Picture of <%= recommendation.name %>" >
-              </div>
-            <% end %>
-        </div>
-
-        <div class="row justify-content-md-center">
-          <h1>Reviews</h1>
-            <h3> <% @destination.reviews.each do |review| %>
-              <%= review.comment %>
-              <%= review.rating %>
-            <% end %>
-          </h3>
-        </div>
-
-        <div class="row justify-content-md-center mt-5">
-          <% if @travel_plan %>
-             <h1>Add Review</h1>
-            <div class="container-form">
-              <%= simple_form_for([@travel_plan, @review]) do |f| %>
-                <%= f.input :rating %>
-                <%= f.input :comment %>
-                <%= f.submit "Leave your review here", class: "btn btn-primary" %>
-              <% end %>
-                </div>
-           <% end %>
-        </div>
-
-
-        <div class="row justify-content-md-center">
-          <% if user_signed_in? %>
-        <!-- Button trigger modal -->
-            <button class="button" data-bs-toggle="modal" data-bs-target="#exampleModal">
-              Add to calender
-            </button>
-
-        <!-- Modal -->
-            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Travel Plan</h5>
-                <button type="button" class="btn btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-              </div>
-              <div class="modal-body">
-                <%= simple_form_for([@destination, @travel_plan_new]) do |f| %>
-                  <%= f.input :start_date, as: :string, required: false, input_html: {class: "datepicker"}%>
-                  <%= f.input :end_date, as: :string, required: false, input_html: {class: "datepicker"} %>
-                  <%= f.input :comment %>
-                  <%= f.submit "Create travel plan", class: "btn btn-success" %>
-                <% end %>
+                </p>
               </div>
             </div>
-            </div>
-            </div>
-          <% else %>
-            <%= link_to "Log in", new_user_session_path, class: "button" %>
-          <% end %>
+          </div>
         </div>
-
-      </div>
+        <% counter += 1 %>
+        <% break if counter == 3 %>
+      <% end %>
     </div>
 
 
- <div>
+    <!-- ------------------- DISPLAYIONG MAP-ROW---------------------- -->
+    <div class="row justify-content-md-center">
+    <div class="shadow-sm p-3 mb-5 bg-white justify-content-md-center width: 70%">
+    <div class="map">
+      <div style="width: 100%; height: 600px;"
+        data-controller="mapbox"
+        data-mapbox-markers-value="<%= @markers.to_json %>"
+        data-mapbox-api-key-value="<%= ENV['MAPBOX_API_KEY'] %>">
+        </div>
+        </div>
+        </div>
+      </div>
 
 
 
+    <div class="row justify-content-md-center">
+      <% if user_signed_in? %>
+          <!-- Button trigger modal -->
+        <div class="mt-5">
+          <button class="button" data-bs-toggle="modal" data-bs-target="#exampleModal">
+            Add to calender
+          </button>
+        </div>
 
+    <!-- Modal -->
+        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Travel Plan</h5>
+            <button type="button" class="btn btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <%= simple_form_for([@destination, @travel_plan_new]) do |f| %>
+              <%= f.input :start_date, as: :string, required: false, input_html: {class: "datepicker"}%>
+              <%= f.input :end_date, as: :string, required: false, input_html: {class: "datepicker"} %>
+              <%= f.input :comment %>
+              <%= f.submit "Create travel plan", class: "btn btn-success" %>
+            <% end %>
+          </div>
+        </div>
+        </div>
+        </div>
+      <% else %>
+        <div class="btn-show-page">
+          <%= link_to "Log in and add to calendar", new_user_session_path, class: "button" %>
+        </div>
+      <% end %>
+    </div>
+
+    <div class="row justify-content-md-center">
+      <div class="mt-5">
+        <h2>Reviews</h2>
+          <h3> <% @destination.reviews.each do |review| %>
+            <%= review.comment %>
+            <%= review.rating %>
+          <% end %>
+        </h3>
+      </div>
+    </div>
+
+    <div class="row justify-content-md-center mt-2">
+      <% if @travel_plan %>
+          <h2>Add Review</h2>
+        <div class="container-form">
+          <%= simple_form_for([@travel_plan, @review]) do |f| %>
+            <%= f.input :rating %>
+            <%= f.input :comment %>
+            <%= f.submit "Leave your review here", class: "btn btn-primary" %>
+          <% end %>
+            </div>
+        <% end %>
+    </div>
 
 
   </div>

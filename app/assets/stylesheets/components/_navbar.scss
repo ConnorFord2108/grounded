@@ -1,16 +1,15 @@
 .navbar-lewagon {
   justify-content: space-between;
-  position: sticky;
+  position: absolute;
   top: 0;
   width: 100%;
-  background-color: rgba(0,0,0,0);
-  z-index: 1;
+  background-color: #008463;
 }
 
 .navbar-lewagon .navbar-collapse {
   flex-grow: 0;
 }
 
-.navbar-lewagon .navbar-brand img {
-  width: 40px;
+.white-navbar-item {
+  color: white;
 }

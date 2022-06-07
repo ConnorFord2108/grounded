@@ -10,12 +10,22 @@
               class: "form-control bg-white",
               value: params[:search_term]
             %>
-
             <%= number_field_tag :max_travel_hours,
               params[:max_travel_hours],
               class: "form-control bg-white",
               value: params[:max_travel_hours]
             %>
+            <% if params[:ordering_options].nil? %>
+              <%= select_tag :ordering_options,
+              options_for_select(@sort_options),
+              options = { onchange: "this.form.submit()", class: "form-control bg-white" }
+              %>
+            <% else %>
+              <%= select_tag :ordering_options,
+                options_for_select(@sort_options, params[:ordering_options]),
+                options = { onchange: "this.form.submit()", class: "form-control bg-white" }
+                %>
+            <% end %>
             <%= submit_tag "Update Grounded Trips", class: "button-banner" %>
           <% end %>
         </div>
@@ -25,26 +35,47 @@
   <div class="row">
     <div class="col-4">
       <div class="shadow-sm p-3 mb-5 bg-white h-100">
+      <div class="map">
       <div style="width: 100%; height: 600px;"
         data-controller="mapbox"
         data-mapbox-markers-value="<%= @markers.to_json %>"
         data-mapbox-api-key-value="<%= ENV['MAPBOX_API_KEY'] %>">
       </div>
       </div>
+      </div>
     </div>
 
     <div class="col-8">
-        <% @near_destinations.each do |dest| %>
-          <% destination_instance = Destination.find { |i| i.pdata_id == dest[:wikidata_id] } %>
+      <% if params[:ordering_options] == "Sort by: Driving Time (asc)" %>
+        <% @near_destinations.sort_by!{ |dest| dest[:travel_time_driving] } %>
+      <% elsif params[:ordering_options] == "Sort by: Driving Time (desc)" %>
+        <% @near_destinations.sort_by!{ |dest| -dest[:travel_time_driving] } %>
+      <% elsif params[:ordering_options] == "Sort by: Public Transport Time (desc)" %>
+        <% @near_destinations.sort_by!{ |dest| -dest[:travel_time_driving] } %>
+      <% else %>
+        <% @near_destinations.sort_by!{ |dest| dest[:travel_time_driving] } %>
+      <% end %>
+
+      <% @near_destinations.each do |dest| %>
+          <% destination_instance = Destination.find { |i| i.wikidata_id == dest[:wikidata_id] } %>
           <%= link_to destination_path(destination_instance), :action => 'go', :class => "text-decoration-none" do %>
             <div class="card-index">
               <div class="card-index-infos">
                 <div>
                   <div class="card-index-infos-topline">
                     <h3><%= dest[:name] %> </h3>
-                    <% hours = dest[:travel_time] / 3600 %>
-                    <% minutes = dest[:travel_time] % 3600 / 60 %>
-                    <p class="card-index-p"> <i class="fas fa-car-side"></i> <%= hours "h" if hours > 0 %> <%= minutes %> min</p>
+                    <div class="card-index-travel-time-holder d-flex">
+                      <% driving_hours = dest[:travel_time_driving] / 3600 %>
+                      <% driving_minutes = dest[:travel_time_driving] % 3600 / 60 %>
+                      <p class="card-index-p" id="car-time-p"> <i class="fas fa-car-alt"></i> <%= "#{driving_hours} h" if driving_hours > 0 %> <%= driving_minutes %> min</p>
+                      <% if dest[:travel_time_public_tranport] == "Over max travel time" %>
+                        <p class="card-index-p"> <i class="fas fa-train"></i> <%= "> #{@max_travel_time/3600} h" %> </p>
+                      <% else %>
+                        <% public_transport_hours = dest[:travel_time_public_tranport] / 3600 %>
+                        <% public_transport_minutes = dest[:travel_time_public_tranport] % 3600 / 60 %>
+                        <p class="card-index-p"> <i class="fas fa-train"></i> <%= "#{public_transport_hours} h" if public_transport_hours > 0 %> <%= public_transport_minutes %> min</p>
+                      <% end %>
+                    </div>
                   </div>
                   <p class="card-index-p"><%= dest[:description] %></p>
                 </div>

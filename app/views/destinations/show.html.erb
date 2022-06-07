@@ -10,7 +10,7 @@
           <%= @destination.description %>
         </div>
         <div row>
-          <img src="" width=80% alt ="Picture could not load">
+          <img src=<%=@destination.picture_url%> width=80% alt ="Picture could not load">
         </div>
       </div>
       <div class="col-4 justify-content-center">
@@ -46,35 +46,16 @@
             <% end %>
         </div>
 
-        <div class="row justify-content-md-center">
-          <h1>Reviews</h1>
-            <h3> <% @destination.reviews.each do |review| %>
-              <%= review.comment %>
-              <%= review.rating %>
-            <% end %>
-          </h3>
-        </div>
-
-        <div class="row justify-content-md-center mt-5">
-          <% if @travel_plan %>
-             <h1>Add Review</h1>
-            <div class="container-form">
-              <%= simple_form_for([@travel_plan, @review]) do |f| %>
-                <%= f.input :rating %>
-                <%= f.input :comment %>
-                <%= f.submit "Leave your review here", class: "btn btn-primary" %>
-              <% end %>
-                </div>
-           <% end %>
-        </div>
 
 
         <div class="row justify-content-md-center">
           <% if user_signed_in? %>
-        <!-- Button trigger modal -->
-            <button class="button" data-bs-toggle="modal" data-bs-target="#exampleModal">
-              Add to calender
-            </button>
+             <!-- Button trigger modal -->
+            <div class="mt-5">
+              <button class="button" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                Add to calender
+              </button>
+            </div>
 
         <!-- Modal -->
             <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -96,19 +77,37 @@
             </div>
             </div>
           <% else %>
-            <%= link_to "Log in", new_user_session_path, class: "button" %>
+            <div class="btn-show-page">
+              <%= link_to "Log in and add to calendar", new_user_session_path, class: "button" %>
+            </div>
           <% end %>
+        </div>
+
+ <div class="row justify-content-md-center">
+          <div class="mt-5">
+            <h2>Reviews</h2>
+              <h3> <% @destination.reviews.each do |review| %>
+                <%= review.comment %>
+                <%= review.rating %>
+              <% end %>
+            </h3>
+          </div>
+        </div>
+
+        <div class="row justify-content-md-center mt-2">
+          <% if @travel_plan %>
+             <h2>Add Review</h2>
+            <div class="container-form">
+              <%= simple_form_for([@travel_plan, @review]) do |f| %>
+                <%= f.input :rating %>
+                <%= f.input :comment %>
+                <%= f.submit "Leave your review here", class: "btn btn-primary" %>
+              <% end %>
+                </div>
+           <% end %>
         </div>
 
       </div>
     </div>
-
-
- <div>
-
-
-
-
-
 
   </div>

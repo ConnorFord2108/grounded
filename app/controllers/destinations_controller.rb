@@ -177,14 +177,26 @@ end
     # using asyncron job to perform creation to not slow down loading
     # CreateDestinationsJob.perform_later(@near_destinations)
 
+    @start_marker = {
+      lat: coordinates.first.coordinates[0],
+      lng: coordinates.first.coordinates[1],
+      image_url: helpers.asset_url("Vector (8).svg")
+    }
+
     @markers = @near_destinations.map do |city| {
       lat: city[:latitude],
       lng: city[:longitude],
       info_window: render_to_string(partial: "info_window", locals: { destination: city
       }),
-      image_url: helpers.asset_url("Vector (3).svg")
+      image_url: helpers.asset_url("Vector (9).svg")
       }
     end
+
+    @markers << @start_marker
+    #   coordinates = Geocoder.search(@city)
+    #   lat = coordinates.first.coordinates[0],
+    #   long = coordinates.first.coordinates[1]
+    #   image_url: helpers.asset_url("Vector (4).svg")
   end
 
   def show
@@ -233,7 +245,7 @@ end
       lng: place[:longitude],
       info_window: render_to_string(partial: "info_window", locals: { destination: place
         }),
-      image_url: helpers.asset_url("Vector (3).svg"),
+      image_url: helpers.asset_url("Vector (10).svg"),
       }
     end
 

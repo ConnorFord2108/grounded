@@ -127,6 +127,30 @@
   padding: 20px 20px;
 }
 
-.card-show-infos {
+
+
+.card-show-v2 {
+  background: white;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+  border-radius: 4px;
   margin: 20px;
+}
+
+.card-show-v2 img {
+  width: 100%;
+  padding: 20px;
+
+}
+
+.text-cards-show {
+  margin: 20px;
+}
+
+.show-card-description {
+  display: inline-block;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 20ch;
+  text-align: left;
 }

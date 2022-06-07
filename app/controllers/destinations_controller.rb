@@ -3,8 +3,6 @@ require 'net/http'
 require 'openssl'
 require 'json'
 require 'digest'
-require "open-uri"
-require "nokogiri"
 
 
 class DestinationsController < ApplicationController
@@ -52,8 +50,12 @@ class DestinationsController < ApplicationController
       @destinations << [name: dest_response["name"], wikidata_id: dest_response["wikiDataId"], latitude: dest_response["latitude"], longitude: dest_response["longitude"], description: "Nice city"]
 
   #Mapbox markers
-end
-
+    @markers = @destinations.map do |city| {
+      lat: city[0][:latitude],
+      lng: city[0][:longitude]
+      }
+    end
+  end
 
     # BELOW WE ARE NOW MOVING INTO THE TRAVEL TIME API CALCULATING THE TRAVEL TIME FROM OUR START LOCATION TO POTENTIAL DESTINATIONS
     # The below part body params is the structure of the API request we need to submit
@@ -179,21 +181,11 @@ end
     end
     # using asyncron job to perform creation to not slow down loading
     # CreateDestinationsJob.perform_later(@near_destinations)
-    @markers = @near_destinations.map do |city| {
-      lat: city[:latitude],
-      lng: city[:longitude],
-      info_window: render_to_string(partial: "info_window", locals: { destination: city
-      }),
-      image_url: helpers.asset_url("Vector (3).svg"),
-      }
-    end
   end
 
   def show
     @travel_plan_new = TravelPlan.new
     @destination = Destination.find(params[:id])
-
-    # ------------- Code to display each recommendation----------
     longitude = @destination.longitude
     latitude = @destination.latitude
     if @destination.recommendations.empty?

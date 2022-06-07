@@ -36,18 +36,6 @@
   font-weight: bold;
 }
 
-.card {
-  display: flex;
-  border-radius: 12px;
-  padding: 50px;
-  height: 260px;
-  width: 220px;
-  background-size: cover;
-  background-position: center;
-  box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
-  color: white;
-  font-weight: bold;
-}
 
 
 .card-index {
@@ -136,5 +124,9 @@
   color: black;
   margin-top: 40px;
   border-radius: 4px;
-  padding: 25px 50px;
+  padding: 20px 20px;
+}
+
+.card-show-infos {
+  margin: 20px;
 }

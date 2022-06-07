@@ -127,6 +127,47 @@
   padding: 20px 20px;
 }
 
-.card-show-infos {
+
+
+.card-show-v2 {
+  background: white;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+  border-radius: 4px;
   margin: 20px;
+  height: 600px;
+  overflow: hidden;
+}
+
+.card-show-v2 img {
+  width: 90%;
+  overflow: hidden;
+  padding: 20px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+
+}
+
+.text-cards-show {
+  margin: 20px;
+  padding-bottom: 20px;
+  // overflow: hidden;
+  text-overflow: ellipsis;
+  margin: 10%;
+}
+
+.decription-text-show {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 6;
+  /* number of lines to show */
+  line-clamp: 6;
+  -webkit-box-orient: vertical;
+
+
+}
+
+#car-time-p {
+  margin-right: 10px;
 }

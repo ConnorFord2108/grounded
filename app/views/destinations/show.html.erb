@@ -1,13 +1,16 @@
   <div class="container">
     <div class="row justify-content-md-center">
-      <div class="col-8">
-
-        <div class="row justify-content-center">
-          <h1><%= @destination.name %> </h1>
-          <%= @destination.description %>
-          <img src=<%=@destination.picture_url%> width=80% alt ="Picture could not load">
+        <div class="row justify-content-center m-0 p-0">
+          <div class="show-banner" style="background-image: url(<%=@destination.picture_url%>)">
+          <div id="show-star-container">
+            <h1><%= @destination.name %> </h1>
+            <h4><%= @destination.description %></h4>
+            <% @rating=4.5 %>
+            <%= render 'shared/showstars' %>
+          </div>
         </div>
 
+      <div class="col-8">
         <div class="row justify-content-md-center">
           <% @recommendations.each do |recommendation| %>
               <div class="card-show">

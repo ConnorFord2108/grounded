@@ -1,11 +1,4 @@
   <div class="container">
-    <div class="row justify-content-center">
-      <h1><%= @destination.name %> </h1>
-      <%= @destination.description %>
-      <img src=<%=@destination.picture_url%> width=80% alt ="Picture could not load">
-    </div>
-
-    <!-- ------------- DISPLAYION ONLY 3 RECOMMENDATIONS --------------->
 
     <div class="row justify-content-md-center">
         <div class="row justify-content-center m-0 p-0">
@@ -18,15 +11,7 @@
           </div>
         </div>
 
-      <div class="col-8">
-        <div class="row justify-content-md-center">
-          <% @recommendations.each do |recommendation| %>
-              <div class="card-show">
-                <div class="card-show-infos">
-                  <div class="card-index-infos-topline">
-                    <h3><%= recommendation.name %> </h3>
-                    <% hours = recommendation.rating / 3600 %>
-                    <% minutes = recommendation.num_reviews % 3600 / 60 %>
+
       <% counter = 0 %>
       <% for recommendation in @recommendations  %>
 

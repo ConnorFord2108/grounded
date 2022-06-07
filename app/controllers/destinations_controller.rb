@@ -3,8 +3,6 @@ require 'net/http'
 require 'openssl'
 require 'json'
 require 'digest'
-require "open-uri"
-require "nokogiri"
 
 
 class DestinationsController < ApplicationController
@@ -53,7 +51,7 @@ class DestinationsController < ApplicationController
     end
     # deduplicating
     @destinations = @destinations.uniq
-  #Mapbox markers
+
 
 
 
@@ -209,26 +207,29 @@ class DestinationsController < ApplicationController
 
     # using asyncron job to perform creation to not slow down loading
     # CreateDestinationsJob.perform_later(@near_destinations)
+
+    @start_marker = {
+      lat: coordinates.first.coordinates[0],
+      lng: coordinates.first.coordinates[1],
+      image_url: helpers.asset_url("Vector (8).svg")
+    }
+
     @markers = @near_destinations.map do |city| {
       lat: city[:latitude],
       lng: city[:longitude],
       info_window: render_to_string(partial: "info_window", locals: { destination: city
       }),
-      image_url: helpers.asset_url("Vector (3).svg"),
+      image_url: helpers.asset_url("Vector (9).svg")
       }
     end
+    @markers << @start_marker
 
-    # @filter_options = ["Nightlife", "Shopping", "Culture", "Eating", "Art", "Cheap"]
-    # would be nice to add more below if we have time
     @sort_options = ["Sort by: Public Transport Time (asc)", "Sort by: Public Transport Time (desc)", "Sort by: Driving Time (desc)", "Sort by: Driving Time (asc)"]
-
   end
 
   def show
     @travel_plan_new = TravelPlan.new
     @destination = Destination.find(params[:id])
-
-    # ------------- Code to display each recommendation----------
     longitude = @destination.longitude
     latitude = @destination.latitude
     if @destination.recommendations.empty?
@@ -269,7 +270,10 @@ class DestinationsController < ApplicationController
     @recommendations = @destination.recommendations
     @markers = @recommendations.map do |place| {
       lat: place[:latitude],
-      lng: place[:longitude]
+      lng: place[:longitude],
+      info_window: render_to_string(partial: "info_window", locals: { destination: place
+        }),
+      image_url: helpers.asset_url("Vector (10).svg"),
       }
     end
 

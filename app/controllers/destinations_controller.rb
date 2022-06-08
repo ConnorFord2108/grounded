@@ -268,7 +268,7 @@ class DestinationsController < ApplicationController
         end
       end
     end
-    @recommendations = @destination.recommendations
+    @recommendations = @destination.recommendations.order("LENGTH(description) DESC")
     @markers = @recommendations.map do |place| {
       lat: place[:latitude],
       lng: place[:longitude],
@@ -276,6 +276,7 @@ class DestinationsController < ApplicationController
         }),
       image_url: helpers.asset_url("Vector (10).svg"),
       }
+
     end
 
     @review = Review.new

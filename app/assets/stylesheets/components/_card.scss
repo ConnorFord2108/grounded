@@ -148,7 +148,7 @@
   margin: 0% 7% 7% 8%;
 }
 
-.decription-text-show {
+.description-text-show {
   overflow: hidden;
   text-overflow: ellipsis;
   display: -webkit-box;
@@ -156,6 +156,10 @@
   /* number of lines to show */
   line-clamp: 5;
   -webkit-box-orient: vertical;
+}
+
+.description-text-show:hover {
+  overflow-y: scroll;
 }
 
 #car-time-p {

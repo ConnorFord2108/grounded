@@ -14,11 +14,11 @@
 
    <!-- ------------------- CARDS---------------------- -->
 
-    <div class="row justify-content-md-center">
-      <% counter = 0 %>
-      <% for recommendation in @recommendations  %>
+    <div class="row justify-content-md-center" data-controller="load">
 
-        <div class="col-4">
+      <% @recommendations.each_with_index do |recommendation, index|  %>
+
+        <div class="col-4 <%="d-none" if index > 2 %> cards-to-load" >
           <div class="card-show-v2">
 
             <img src="<%= recommendation.photo_url %>" class="rounded" alt="Picture of <%= recommendation.name %>" >
@@ -36,15 +36,13 @@
             <div class="text-cards-show">
                 <h3><%= recommendation.name %></h3>
               <p>
-                <div class="decription-text-show">
+                <div class="description-text-show">
                   <%= recommendation.description %>
                 </div>
               </p>
             </div>
           </div>
         </div>
-        <% counter += 1 %>
-        <% break if counter == 3 %>
       <% end %>
     </div>
 

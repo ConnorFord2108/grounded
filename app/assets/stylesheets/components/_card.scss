@@ -113,39 +113,19 @@
   position: relative;
 }
 
-.card-show {
-  overflow: hidden;
-  background: white;
-  box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  text-decoration: none;
-  color: black;
-  margin-top: 40px;
-  border-radius: 4px;
-  padding: 20px 20px;
-}
-
-
 
 .card-show-v2 {
   background: white;
   box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
   border-radius: 4px;
-  margin: 20px;
   height: 600px;
-  overflow: hidden;
+  margin: 35px;
+  margin-top: 50px;
 }
 
 .card-show-v2 img {
-  width: 90%;
-  overflow: hidden;
-  padding: 20px;
+  width: 100%;
   display: block;
-  margin-left: auto;
-  margin-right: auto;
-
 }
 
 .text-cards-show {
@@ -160,9 +140,9 @@
   overflow: hidden;
   text-overflow: ellipsis;
   display: -webkit-box;
-  -webkit-line-clamp: 6;
+  -webkit-line-clamp: 5;
   /* number of lines to show */
-  line-clamp: 6;
+  line-clamp: 5;
   -webkit-box-orient: vertical;
 
 
@@ -184,7 +164,7 @@
 
 .card-plan {
   background: white;
-  box-shadow: 0 0 15px rgba(0,0,0,0.2);
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
 
   img {
     height: 250px;

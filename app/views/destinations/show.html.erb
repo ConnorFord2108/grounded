@@ -99,11 +99,16 @@
     <div class="row justify-content-md-center">
       <div class="mt-5">
         <h2>Reviews</h2>
-          <h3> <% @destination.reviews.each do |review| %>
-            <%= review.comment %>
-            <%= review.rating %>
+        <div class="review-box">
+          <% @destination.reviews.each do |review| %></p>
+            <p><%= review.travel_plan.user.first_name %></p>
+            <% @rating = review.rating %>
+            <%= render 'shared/stars' %>
+            <p><%= review.comment %></p>
+            <p><%= review.travel_plan.start_date %> - <%= review.travel_plan.end_date %></p>
+            <p>-----------------</p>
           <% end %>
-        </h3>
+        </div>
       </div>
     </div>
 

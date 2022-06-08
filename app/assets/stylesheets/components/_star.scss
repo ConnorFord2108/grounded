@@ -1,5 +1,11 @@
 .star-container {
-    display: inline-block;
-    color: #FFB203;
-    font-size: 14px;
-  }
+  display: inline-block;
+  color: #FFB203;
+  font-size: 14px;
+}
+
+.stars-in-card {
+  margin: 3% 7% 0% 4%;
+  display: flex;
+  justify-content: right;
+}

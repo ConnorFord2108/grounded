@@ -1,5 +1,5 @@
   <div class="container">
-
+   <!-- ------------------- BANNER---------------------- -->
     <div class="row justify-content-md-center">
         <div class="row justify-content-center m-0 p-0">
           <div class="show-banner" style="background-image: url(<%=@destination.picture_url%>)">
@@ -10,33 +10,36 @@
             <%= render 'shared/showstars' %>
           </div>
         </div>
+      </div>
 
+   <!-- ------------------- CARDS---------------------- -->
 
+    <div class="row justify-content-md-center">
       <% counter = 0 %>
       <% for recommendation in @recommendations  %>
 
         <div class="col-4">
           <div class="card-show-v2">
-            <div class="f-lex justify-content-center">
 
-              <img src="<%= recommendation.photo_url %>" class="rounded" alt="Picture of <%= recommendation.name %>" >
+            <img src="<%= recommendation.photo_url %>" class="rounded" alt="Picture of <%= recommendation.name %>" >
 
-              <div class="text-cards-show">
-                <h2>
-                  <span style="
-                      /* display:inline-block;
-                      white-space: nowrap; */
-                      overflow: hidden;
-                      text-overflow: ellipsis;
-                      max-width: 20ch;"><h3><%= recommendation.name %></h3>
-                  </span>
-                </h2>
-                <p>
-                  <div class="decription-text-show">
-                    <%= recommendation.description %>
-                  </div>
-                </p>
+            <div class="stars-in-card">
+              <div id="star-container">
+                <% @rating=recommendation.rating %>
+                <%= render 'shared/stars' %>
               </div>
+              <div class="reviews-card-show">
+                <%= "#{recommendation.num_reviews} reviews" %>
+              </div>
+            </div>
+
+            <div class="text-cards-show">
+                <h3><%= recommendation.name %></h3>
+              <p>
+                <div class="decription-text-show">
+                  <%= recommendation.description %>
+                </div>
+              </p>
             </div>
           </div>
         </div>
@@ -44,7 +47,6 @@
         <% break if counter == 3 %>
       <% end %>
     </div>
-
 
     <!-- ------------------- DISPLAYIONG MAP-ROW---------------------- -->
     <div class="row justify-content-md-center">

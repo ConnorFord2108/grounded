@@ -50,6 +50,11 @@
   color: black;
   margin-bottom: 8px;
   border-radius: 4px;
+  transition: transform .4s ease;
+}
+
+.card-index:hover {
+  transform: scale(1.15);
 }
 
 .card-index h2 {
@@ -90,6 +95,14 @@
   margin: 0;
 }
 
+.card-index-infos-topline h3:hover {
+  color: #D8B384;
+}
+
+.card-index-infos-topline h3:visited {
+  color: #D8B384;
+}
+
 .card-container {
   width: 30%;
 }
@@ -113,7 +126,6 @@
   position: relative;
 }
 
-
 .card-show-v2 {
   background: white;
   box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
@@ -133,7 +145,7 @@
   padding-bottom: 20px;
   // overflow: hidden;
   text-overflow: ellipsis;
-  margin: 10%;
+  margin: 0% 7% 7% 8%;
 }
 
 .decription-text-show {
@@ -196,3 +208,5 @@
   color: #D8B384;
   font-weight: bold;
 }
+
+.reviews-card-show {}

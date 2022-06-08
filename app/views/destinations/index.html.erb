@@ -56,8 +56,10 @@
         <% @near_destinations.sort_by!{ |dest| dest[:travel_time_driving] } %>
       <% end %>
 
+      <%  %>
+
       <% @near_destinations.each do |dest| %>
-          <% destination_instance = Destination.find { |i| i.wikidata_id == dest[:wikidata_id] } %>
+          <% destination_instance = @destination_instances.find { |i| i.wikidata_id == dest[:wikidata_id] } %>
           <%= link_to destination_path(destination_instance), :action => 'go', :class => "text-decoration-none" do %>
             <div class="card-index">
               <div class="card-index-infos">

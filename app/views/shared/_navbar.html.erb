@@ -1,7 +1,9 @@
 <div class="navbar navbar-expand-sm navbar-light navbar-lewagon">
   <div class="container">
     <%= link_to root_path, class: "navbar-brand" do %>
-      <%= image_tag "Logo.png", class: "avatar-navbar"  %>
+      <div class="logo-div">
+        <h1>Grounded</h1>
+      </div>
     <% end %>
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -10,23 +12,19 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto">
         <% if user_signed_in? %>
-          <li class="nav-item active">
-            <%= link_to "Home", "/", class: "nav-link white-navbar-item" %>
-          </li>
-          <li class="nav-item">
-            <%= link_to "Your Plans", "travel_plans", class: "nav-link white-navbar-item" %>
-          </li>
           <li class="nav-item dropdown">
+            <p class="dropdown-toggle button-navbar" id="navbarDropdownToggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" ><i class="fas fa-bars"></i> Menu</p>
             <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-              <%= link_to "Action", "#", class: "dropdown-item white-navbar-item" %>
-              <%= link_to "Another action", "#", class: "dropdown-item white-navbar-item" %>
-              <%= link_to "Log out", destroy_user_session_path, method: :delete, class: "dropdown-item white-navbar-item" %>
+              <%= link_to "Your Plans", "travel_plans", class: "dropdown-item" %>
+              <%= link_to "Log out", destroy_user_session_path, method: :delete, class: "dropdown-item" %>
             </div>
           </li>
         <% else %>
         <div>
           <li class="nav-item">
-            <%= link_to "Login", new_user_session_path, class: "button" %>
+            <%= link_to new_user_session_path, class: "button-navbar" do %>
+              <i class="fas fa-user"></i>   Login
+            <% end %>
           </li>
         <% end %>
         </div>

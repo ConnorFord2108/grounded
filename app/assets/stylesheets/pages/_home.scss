@@ -3,13 +3,12 @@
 .destinations {
   padding-top: 20px;
   padding-bottom: 20px;
-  border-bottom: 1px solid $light-gray;
 }
 
 .top-level-vp-container {
   background-color: rgba(0, 133, 100, 0.2);
   border-radius: 16px;
-  padding: 30px;
+  padding: 50px;
   text-align: center;
 }
 
@@ -17,6 +16,9 @@
   color: $grounded-green;
 }
 
+.vp-holder {
+  padding: 40px;
+}
 .vp-q-and-a-holder {
   display: flex;
   justify-content: space-around;
@@ -76,6 +78,32 @@
 
 .vp-line {
   border-bottom: solid 3px #008564;
-  margin-top: 20px;
-  margin-bottom: 20px
+  margin-top: 50px;
+  margin-bottom: 50px
+}
+
+.vp-header {
+  font-size: 40px;
+}
+
+.container {
+  background: white;
+}
+
+.home-p-cards {
+  display: flex;
+  border-radius: 12px;
+  padding: 50px;
+  height: 260px;
+  width: 90%;
+  margin: auto;
+  background-size: cover;
+  background-position: center;
+  box-shadow: 0 0 15px rgba(0, 0 , 0, 0.5);
+  color: white;
+  font-weight: bold;
+}
+
+.home-p-cards h3 {
+  width: 90%
 }

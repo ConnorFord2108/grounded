@@ -144,8 +144,6 @@
   /* number of lines to show */
   line-clamp: 5;
   -webkit-box-orient: vertical;
-
-
 }
 
 #car-time-p {
@@ -182,6 +180,15 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+  }
+
+  .plan-body .a {
+    text-decoration: none;
+    color: #1B5044;
+  }
+
+  .plan-body .a:hover {
+    color: #00B88A;
   }
 }
 

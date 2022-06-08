@@ -8,11 +8,11 @@
 
 .footer-basic ul {
   padding:0;
-  list-style:none;
-  text-align:center;
-  font-size:18px;
-  line-height:1.6;
-  margin-bottom:0;
+  list-style: none;
+  text-align: center;
+  font-size: 18px;
+  line-height: 1.6;
+  margin-bottom: 0;
 }
 
 .footer-basic li {
@@ -62,5 +62,23 @@
 }
 
 .list-inline {
-  color: #121A2E;
+  color: white;
+}
+
+.copyright {
+  font-weight: bold;
+}
+
+html, body {
+  height: 100%;
+  margin: 0;
+}
+
+.page-container {
+  min-height: 100%;
+  margin: 0 auto 50px auto;
+}
+
+.footer-container {
+  height: 50px;
 }

@@ -12,13 +12,13 @@
       <div>
         <div class="card-plan">
           <% if travel_plan.destination[:picture_url].present? %>
-            <img src="<%= travel_plan.destination[:picture_url] %>" alt="Picture of <%= travel_plan.destination[:name] %>">
+            <a href="<%= destination_path(travel_plan.destination) %>"><img src="<%= travel_plan.destination[:picture_url] %>" alt="Picture of <%= travel_plan.destination[:name] %>"></a>
           <% else %>
-            <img src="https://www.banffjaspercollection.com/Brewster/media/Images/Brewster-Sightseeing/Gallery/GI-Sightseeing-Moraine-Lake.jpg" alt="GROUNDED">
+            <a href="<%= destination_path(travel_plan.destination) %>"><img src="https://www.banffjaspercollection.com/Brewster/media/Images/Brewster-Sightseeing/Gallery/GI-Sightseeing-Moraine-Lake.jpg" alt="GROUNDED"></a>
           <% end %>
           <div class="plan-body">
             <div>
-              <h3><%= travel_plan.destination.name %></h3>
+              <h3><%= link_to "#{travel_plan.destination.name}", destination_path(travel_plan.destination), class: "a" %></h3>
               <p>Start Date: <%= travel_plan.start_date.strftime("%d.%m.%Y") %></p>
               <p>End Date: <%= travel_plan.end_date.strftime("%d.%m.%Y") %></p>
               <p>Comment: <%= travel_plan.comment %></p>

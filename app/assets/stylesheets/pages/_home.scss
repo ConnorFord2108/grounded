@@ -1,1 +1,81 @@
 // Specific CSS for your home-page
+
+.destinations {
+  padding-top: 20px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid $light-gray;
+}
+
+.top-level-vp-container {
+  background-color: rgba(0, 133, 100, 0.2);
+  border-radius: 16px;
+  padding: 30px;
+  text-align: center;
+}
+
+.top-level-vp-container h1 {
+  color: $grounded-green;
+}
+
+.vp-q-and-a-holder {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.vp-q {
+  border-radius: 8px;
+  background-color: $grounded-green;
+  height: 10em;
+  padding: 8px;
+  display: flex;
+  align-items: center;
+  margin-top: 20px
+}
+
+.vp-q h1 {
+  color: white;
+  margin-left: 20px;
+}
+
+.vp-bottom-half h1 {
+  color: #008564;
+}
+
+.vp-q h2 {
+  color: white;
+  flex-grow: 1;
+}
+
+#arrow {
+  color: $grounded-green;
+  font-size: 120px;
+  text-align: center;
+}
+
+.vp-answer {
+  border-radius: 8px;
+  background-color: $grounded-green;
+  height: 14em;
+  padding: 8px;
+  align-items: center;
+  display: flex;
+  text-align: center;
+  flex-direction: column;
+  justify-content: space-evenly;
+}
+
+.vp-answer h2 {
+  color: white;
+}
+
+.vp-answer p {
+  color: white;
+  font-size: 24px;
+}
+
+.vp-line {
+  border-bottom: solid 3px #008564;
+  margin-top: 20px;
+  margin-bottom: 20px
+}

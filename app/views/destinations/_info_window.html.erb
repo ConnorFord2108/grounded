@@ -1,6 +1,6 @@
 <%= destination[:name] %>
 <%= destination[:description] %>
-<% destination_instance = Destination.find { |i| i.wikidata_id == destination[:wikidata_id] } %>
+<% destination_instance = @destination_instances.find { |i| i.wikidata_id == destination[:wikidata_id] } %>
 <% if destination_instance != nil %>
 <%= link_to "More info", destination_path(destination_instance) %>
 <% end %>

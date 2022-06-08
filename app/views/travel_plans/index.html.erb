@@ -1,8 +1,6 @@
 <div class="banner" style="background-image: linear-gradient(rgba(0,184,138,0.4),rgba(0,0,0,0.4)), url(https://i.imgur.com/5O1JXmm.jpg);">
   <div class="container">
     <h1 class="text-center">GROUNDED!</h1>
-    <%# <p>You don’t want to fly but still want to have an unforgettable weekend getaway.</p>
-    <p>Grounded can help you find the perfect destination within a travel time of your choice.</p> %>
   </div>
 </div>
 
@@ -26,7 +24,7 @@
               <p>Comment: <%= travel_plan.comment %></p>
             </div>
             <div class="button-index">
-              <%= link_to "Delete", travel_plan_path(travel_plan), method: :delete, class: "btn btn-success w-100", data: {confirm: "Are you sure you want to remove this destination?"} %>
+              <%= link_to "Delete", travel_plan_path(travel_plan), method: :delete, class: "btn btn-success w-100 index-button", data: {confirm: "Are you sure you want to remove this destination?"} %>
               <br>
               <button class="btn btn-success w-100 mt-2" data-bs-toggle="modal" data-bs-target="#modal-<%= travel_plan.id %>">
                 Edit

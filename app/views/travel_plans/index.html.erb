@@ -5,8 +5,14 @@
 </div>
 
 <div class="container travel-plan-container my-5">
-  <%= render :partial => 'flash_messages', :flash => flash %>
   <h2>ALL YOUR TRAVEL PLANS</h2>
+  <% if alert %>
+    <div class="alert alert-warning alert-dismissible fade show m-1" role="alert">
+      <%= alert %>
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
+      </button>
+    </div>
+  <% end %>
   <div class="card-plans my-5">
     <% @travel_plans.each do |travel_plan| %>
       <div>

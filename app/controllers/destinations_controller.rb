@@ -44,16 +44,25 @@ class DestinationsController < ApplicationController
     # it is not saved in the database here as only few cities will make it through and saving all takes a lot of unnecessary time
     # with premium account for travel time API 25k distance limit is probably better idea (with non-premium too few make it through)
     response = http.request(request)
+
+    # seeting max distance to save destinations for to limit the time needed in espeically travel time API
+    if @max_travel_time >= 14400
+      max_distance = 300
+    elsif @max_travel_time >= 10800
+      max_distance = 240
+    elsif @max_travel_time >= 7200
+      max_distance = 200
+    else
+      max_distance = 140
+    end
+
     @destinations = []
     JSON.parse(response.read_body)["data"].each do |dest_response|
-      next if dest_response["distance"] < minimum_distance_from_start
+      next if (dest_response["distance"] < minimum_distance_from_start || dest_response["distance"] > max_distance)
       @destinations << [name: dest_response["name"], wikidata_id: dest_response["wikiDataId"], latitude: dest_response["latitude"], longitude: dest_response["longitude"], description: "Nice city"]
     end
     # deduplicating
     @destinations = @destinations.uniq
-
-
-
 
     # BELOW WE ARE NOW MOVING INTO THE TRAVEL TIME API CALCULATING THE TRAVEL TIME FROM OUR START LOCATION TO POTENTIAL DESTINATIONS
     # The below part body params is the structure of the API request we need to submit
@@ -82,23 +91,25 @@ class DestinationsController < ApplicationController
           "travel_time",
           "distance"
           ]
-        },
-        {
-          "id": "One-to-many Matrix Public_Transport",
-          "departure_location_id": @city,
-          "arrival_location_ids": [],
-          "transportation": {
-            "type": "public_transport"
-          },
-          "departure_time": Time.now.noon,
-          "travel_time": @max_travel_time,
-          "properties": [
-          "travel_time",
-          "distance"
-          ]
         }
       ]
     }
+
+    # ,
+    #     {
+    #       "id": "One-to-many Matrix Public_Transport",
+    #       "departure_location_id": @city,
+    #       "arrival_location_ids": [],
+    #       "transportation": {
+    #         "type": "public_transport"
+    #       },
+    #       "departure_time": Time.now.noon,
+    #       "travel_time": @max_travel_time,
+    #       "properties": [
+    #       "travel_time",
+    #       "distance"
+    #       ]
+    #     }
     # here we add each destination created above to the api request (as a location)
     # as you can see we are adding them into the locations at the beginning of the body_params (full coordiantes data)
     # and their IDs at the location id at the end (API pulls coordinates from initial locations entry)
@@ -112,7 +123,7 @@ class DestinationsController < ApplicationController
         }
       }
       body_params[:departure_searches][0][:arrival_location_ids] << destination[0][:wikidata_id]
-      body_params[:departure_searches][1][:arrival_location_ids] << destination[0][:wikidata_id]
+      # body_params[:departure_searches][1][:arrival_location_ids] << destination[0][:wikidata_id]
     end
 
     # we set up the API (which URL to submit request to etc)
@@ -144,14 +155,14 @@ class DestinationsController < ApplicationController
     end
 
     #Looping through second response arrary covering public transport (vs driving above)
-    @near_destinations.each do |near_dest|
-      dest_hash = data_2["results"][1]["locations"].find { |i| i["id"] == near_dest[:wikidata_id]}
-      if dest_hash.nil?
-        near_dest[:travel_time_public_tranport] = "Over max travel time"
-      else
-        near_dest[:travel_time_public_tranport] = dest_hash["properties"][0]["travel_time"]
-      end
-    end
+    # @near_destinations.each do |near_dest|
+    #   dest_hash = data_2["results"][1]["locations"].find { |i| i["id"] == near_dest[:wikidata_id]}
+    #   if dest_hash.nil?
+    #     near_dest[:travel_time_public_tranport] = "Over max travel time"
+    #   else
+    #     near_dest[:travel_time_public_tranport] = dest_hash["properties"][0]["travel_time"]
+    #   end
+    # end
 
     # ADDING FINAL API TO PULL DESTINATION DESCRIPTION AND IMAGE URL
     # A wiki IDs variable containing all wiki IDs of the relevant destinations is created
@@ -200,11 +211,13 @@ class DestinationsController < ApplicationController
 
     @destination_instances = Destination.all
 
-    @near_destinations.each do |city|
-      next if @destination_instances.exists?(:wikidata_id => city[:wikidata_id])
-      new_city = Destination.new(name: city[:name], wikidata_id: city[:wikidata_id], latitude: city[:latitude], longitude: city[:longitude], description: city[:description], picture_url: city[:picture_url])
-      new_city.save
-    end
+    # @near_destinations.each do |city|
+    #   next if @destination_instances.exists?(:wikidata_id => city[:wikidata_id])
+    #   new_city = Destination.new(name: city[:name], wikidata_id: city[:wikidata_id], latitude: city[:latitude], longitude: city[:longitude], description: city[:description], picture_url: city[:picture_url])
+    #   new_city.save
+    # end
+
+    CreateDestinationsJob.perform_later(@near_destinations)
 
 
     # using asyncron job to perform creation to not slow down loading

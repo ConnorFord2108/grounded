@@ -247,12 +247,11 @@ class DestinationsController < ApplicationController
       request["X-RapidAPI-Key"] = '05e37c7835mshe38bce0736bf094p1546dejsnc66cc7f9539c'
 
       response = http.request(request)
-
-
       json_file = JSON.parse(response.read_body)['data']
-      counter = 0
+      @counter = 0
       json_file.each do |attraction|
         # recommendations should contain name, rating, num_reviews, photo, description
+        @counter += 1
         if attraction.key?('rating') && attraction.key?('photo') && attraction.key?('name') && attraction.key?('description') && attraction.key?('num_reviews')
           if attraction['rating'].to_f >= 4
             recommendation = Recommendation.new

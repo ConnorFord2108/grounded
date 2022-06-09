@@ -1,0 +1,6 @@
+# config/meta.yml
+
+meta_product_name: "Grounded Travel"
+meta_title: "Grounded-travel - Stop flying and find environmental friendly travel destinations based on your current location"
+meta_description: "Grounded travel finds interesting cities for long-weekend trips that you can reach through public transport or by driving, so that you do not need to fly."
+meta_image: "cover.png" # should exist in `app/assets/images/`

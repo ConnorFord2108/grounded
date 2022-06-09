@@ -287,7 +287,6 @@ class DestinationsController < ApplicationController
       if current_user.travel_plans.find { |plan| plan.destination_id == @destination.id } != nil
         @travel_plan = current_user.travel_plans.find { |plan| plan.destination_id == @destination.id }
       end
-    else
     end
   end
 end

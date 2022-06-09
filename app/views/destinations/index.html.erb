@@ -10,11 +10,7 @@
               class: "form-control bg-white",
               value: params[:search_term]
             %>
-            <%= text_field_tag :max_travel_hours,
-              params[:max_travel_hours].to_i,
-              class: "form-control bg-white",
-              value: params[:max_travel_hours]
-            %>
+            <%= select_tag(:max_travel_hours, options_for_select(["Max travel duration (hours)", 1, 2, 3, 4]), class: "form-control") %>
             <% if params[:ordering_options].nil? %>
               <%= select_tag :ordering_options,
               options_for_select(@sort_options),

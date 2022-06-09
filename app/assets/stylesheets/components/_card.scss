@@ -116,42 +116,6 @@
   position: relative;
 }
 
-.card-show-v2 {
-  background: white;
-  box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
-  border-radius: 4px;
-  height: 600px;
-  margin: 35px;
-  margin-top: 50px;
-}
-
-.card-show-v2 img {
-  width: 100%;
-  display: block;
-}
-
-.text-cards-show {
-  margin: 20px;
-  padding-bottom: 20px;
-  // overflow: hidden;
-  text-overflow: ellipsis;
-  margin: 0% 7% 7% 8%;
-}
-
-.description-text-show {
-  overflow: hidden;
-  text-overflow: ellipsis;
-  display: -webkit-box;
-  -webkit-line-clamp: 5;
-  /* number of lines to show */
-  line-clamp: 5;
-  -webkit-box-orient: vertical;
-}
-
-.description-text-show:hover {
-  overflow-y: scroll;
-}
-
 #car-time-p {
   margin-right: 10px;
 }

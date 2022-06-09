@@ -11,14 +11,20 @@
           </div>
         </div>
       </div>
+    </div>
 
-   <!-- ------------------- CARDS---------------------- -->
+    <!-- ------------------- ACTIVITIES HEADER---------------------- -->
 
+    <div class="row justify-content-md-center">
+      <h1 class="header-show-page">Recommended activities</h1>
+    </div>
+
+     <!-- ------------------- CARDS---------------------- -->
     <div class="row justify-content-md-center" data-controller="load">
 
       <% @recommendations.each_with_index do |recommendation, index|  %>
 
-        <div class="col-4 <%="d-none" if index > 2 %> cards-to-load" >
+        <div class="col-3 <%="d-none" if index > 3 %> cards-to-load" >
           <div class="card-show-v2">
 
             <img src="<%= recommendation.photo_url %>" class="rounded" alt="Picture of <%= recommendation.name %>" >

@@ -10,8 +10,8 @@
               class: "form-control bg-white",
               value: params[:search_term]
             %>
-            <%= number_field_tag :max_travel_hours,
-              params[:max_travel_hours],
+            <%= text_field_tag :max_travel_hours,
+              params[:max_travel_hours].to_i,
               class: "form-control bg-white",
               value: params[:max_travel_hours]
             %>

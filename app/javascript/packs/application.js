@@ -26,5 +26,7 @@ application.load(definitionsFromContext(context))
 
 // import Flatpickr
 import { initFlatpickr } from "../plugins/flatpickr";
-
-initFlatpickr();
+document.addEventListener("turbolinks:load", function() {
+  // ...
+  initFlatpickr();
+})

@@ -5,12 +5,41 @@
   padding-bottom: 20px;
 }
 
+.destinations h2 {
+  text-align: center;
+  display: flex;
+  margin: 50px 100px 100px 100px;
+  font-family: 'Montserrat', sans-serif;
+}
+
+.destinations h3 {
+  font-family: 'Montserrat', sans-serif;
+  display: flex;
+
+}
+
+
 .top-level-vp-container {
   background-color: rgba(0, 133, 100, 0.2);
   border-radius: 16px;
   padding: 50px;
   text-align: center;
 }
+
+.destination-card {
+  display: flex;
+  border-radius: 12px;
+  padding: 50px;
+  height: 260px;
+  width: 90%;
+  background-size: cover;
+  background-position: center;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+  color: white;
+  font-weight: bold;
+  margin: auto;
+}
+
 
 .top-level-vp-container h1 {
   color: $grounded-green;
@@ -92,14 +121,11 @@
 
 .home-p-cards {
   display: flex;
-  border-radius: 12px;
   padding: 50px;
-  height: 260px;
   width: 90%;
   margin: auto;
   background-size: cover;
   background-position: center;
-  box-shadow: 0 0 15px rgba(0, 0 , 0, 0.5);
   color: white;
   font-weight: bold;
 }

@@ -1,6 +1,6 @@
 
 <div class="banner" style="background-image: linear-gradient(rgba(0,184,138,0.4),rgba(0,0,0,0.4)), url(https://s3-alpha-sig.figma.com/img/f2bf/8302/35b71be6d04e8a2d4f458a71163151f7?Expires=1655078400&Signature=UCg~~zkN~9t4gqF3y1u111TfyYkTnEapV58g9Cz5LFxBQJlHxDPGrZG06wUfzOh90rTB-Trt8GqsS7Gbf0OLP0Zjb0wlCcwfveEBIOmXLmZlF2WZkkCiVzZ5LB0CR3LdSM2zfB7jwU5Jr0wCx6bmvo3-J8UL0hkY8OVBVaw-D52BJnsrMq1ogMA6tzj4~CkvqCvbF9QWYPPgz0cj4b0qOxR3K9PYo9uxkVGtolPLs8lDkW91hx1iUXkHon4Pb-RXMnfTy2g4hUxYxqHif-lgBhczy3bpfjLXMjJnkdFjc-zHFAfNlkxX2ISJlhKbm8xQ9v8HRuSDaO7QSxKNdqh0wA__&Key-Pair-Id=APKAINTVSUGEWH5XD5UA);">
-  <div class="container">
+  <div class="container" id="banner-container">
     <h1>Get away!</h1>
     <h1>Even if you are GROUNDED!</h1>
     <div class="form">
@@ -33,7 +33,7 @@
           <div class="home-p-cards d-flex">
             <% @destination_instances.first(4).each do |dest| %>
               <div class="col-3">
-                <div class="card" style="background-image: url(<%= dest.picture_url %>)">
+                <div class="destination-card" style="background-image: url(<%= dest.picture_url %>)">
                   <h3><%= dest.name %></h3>
                 </div>
               </div>
@@ -49,7 +49,7 @@
           <div class="home-p-cards d-flex">
             <% @destination_instances.last(4).each do |dest| %>
               <div class="col-3">
-                <div class="card" style="background-image: url(<%= dest.picture_url %>)">
+                <div class="destination-card" style="background-image: url(<%= dest.picture_url %>)">
                   <h3><%= dest.name %></h3>
                 </div>
               </div>

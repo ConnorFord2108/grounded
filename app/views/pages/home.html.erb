@@ -33,11 +33,13 @@
           <div class="destinations">
             <div class="home-p-cards d-flex">
               <% @destination_instances.first(4).each do |dest| %>
-              <div class="col-3">
-                <div class="destination-card" style="background-image: linear-gradient(rgba(0,184,138,0.4),rgba(0,0,0,0.4)), url(<%= dest.picture_url %>)">
-                  <h3><%= dest.name %></h3>
+                <div class="col-3">
+                  <%= link_to destination_path(dest), :action => 'go', :class => "text-decoration-none" do %>
+                    <div class="destination-card" style="background-image: linear-gradient(rgba(0,184,138,0.4),rgba(0,0,0,0.4)), url(<%= dest.picture_url %>)">
+                      <h3><%= dest.name %></h3>
+                    </div>
+                  <% end %>
                 </div>
-              </div>
               <% end %>
             </div>
           </div>
@@ -50,8 +52,11 @@
           <div class="home-p-cards d-flex">
             <% @destination_instances.last(4).each do |dest| %>
               <div class="col-3">
-                <div class="destination-card" style="background-image: linear-gradient(rgba(0,184,138,0.4),rgba(0,0,0,0.4)), url(<%= dest.picture_url %>)">                  <h3><%= dest.name %></h3>
-                </div>
+                <%= link_to destination_path(dest), :action => 'go', :class => "text-decoration-none" do %>
+                  <div class="destination-card" style="background-image: linear-gradient(rgba(0,184,138,0.4),rgba(0,0,0,0.4)), url(<%= dest.picture_url %>)">
+                    <h3><%= dest.name %></h3>
+                  </div>
+                <% end %>
               </div>
             <% end %>
           </div>

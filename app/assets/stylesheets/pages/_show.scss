@@ -16,7 +16,7 @@
   box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
   border-radius: 4px;
   height: 600px;
-  margin-bottom: 60px;
+  margin-bottom: 20px;
   margin-top: 20px;
 }
 
@@ -45,4 +45,15 @@
 
 .description-text-show:hover {
   overflow-y: scroll;
+}
+
+.button-show-more {
+  background-color: #008463;
+  color: white;
+  padding: 8px;
+  width: 200px;
+  border-radius: 4px;
+  font-family: 'Montserrat', sans-serif;
+  margin-bottom: 40px;
+  visibility: visible;
 }

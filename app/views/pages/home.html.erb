@@ -21,8 +21,10 @@
   </div>
 </div>
 
-<div class="container ">
-  <h2>Example destinations</h2>
+<div class="container">
+<div class="examples">
+  <h2>Destinations near you</h2>
+</div>
     <% @destination_instances = Destination.first(12) %>
   <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
     <div class="carousel-inner">
@@ -32,7 +34,7 @@
             <div class="home-p-cards d-flex">
               <% @destination_instances.first(4).each do |dest| %>
               <div class="col-3">
-                <div class="destination-card" style="background-image: url(<%= dest.picture_url %>)">
+                <div class="destination-card" style="background-image: linear-gradient(rgba(0,184,138,0.4),rgba(0,0,0,0.4)), url(<%= dest.picture_url %>)">
                   <h3><%= dest.name %></h3>
                 </div>
               </div>
@@ -48,8 +50,7 @@
           <div class="home-p-cards d-flex">
             <% @destination_instances.last(4).each do |dest| %>
               <div class="col-3">
-                <div class="destination-card" style="background-image: url(<%= dest.picture_url %>)">
-                  <h3><%= dest.name %></h3>
+                <div class="destination-card" style="background-image: linear-gradient(rgba(0,184,138,0.4),rgba(0,0,0,0.4)), url(<%= dest.picture_url %>)">                  <h3><%= dest.name %></h3>
                 </div>
               </div>
             <% end %>
@@ -67,11 +68,6 @@
       <span class="visually-hidden">Next</span>
     </button>
   </div>
-</div>
-
-
-
-
   <div>
     <div class="vp-line">
   </div>
@@ -118,7 +114,6 @@
       </div>
     </div>
   </div>
-
 </div>
 
 

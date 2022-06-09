@@ -1,4 +1,4 @@
-.banner {
+.banner, .index-banner {
   background-size: cover;
   background-position: 50% 70%;
   object-fit: fill;
@@ -44,4 +44,16 @@
 
 #banner-container {
   background-color: transparent;
+}
+
+.index-banner h1 {
+  color: white;
+  text-shadow: 1px 1px 3px rgba(0,0,0,0.2);
+  font-size: 60px;
+  font-weight: bold;
+  font-family: 'Source Serif Pro', serif;
+}
+
+.index-h1 {
+  margin: 0 auto;
 }

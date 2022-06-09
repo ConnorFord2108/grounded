@@ -51,6 +51,10 @@
 .btn {
   background-color: #008463;
   font-weight: bold;
+  border: solid 1px;
+  border-radius: 4px;
+  border-color: black;
+  padding: 8px;
 }
 
 .btn:hover {

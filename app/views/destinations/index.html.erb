@@ -81,9 +81,8 @@
                     </div>
                   <p class="card-index-p"><%= dest[:description] %></p>
                 </div>
-                  <p class="card-index-p"><i class="fas fa-tag"></i>Tags to be added</p>
               </div>
-              <div class="card-index-img-div" style="background-image: url(<%= dest[:picture_url] %>);">
+              <div class="card-index-img" style="background-image: url(<%= dest[:picture_url] %>);">
                 <div class="card-index-star-holder">
                   <% @rating=4.5 %>
                   <%= render 'shared/stars' %>

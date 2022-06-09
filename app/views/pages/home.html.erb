@@ -10,11 +10,7 @@
           class: "form-control",
           placeholder: "Enter start location"
         %>
-        <%= text_field_tag :max_travel_hours,
-          params[:max_travel_hours].to_i,
-          class: "form-control",
-          placeholder: "Select maximum hours of travel"
-        %>
+        <%= select_tag(:max_travel_hours, options_for_select(["Max travel duration (hours)", 1, 2, 3, 4]), class: "form-control") %>
         <%= submit_tag "Search Grounded Trips", class: "button-banner" %>
       <% end %>
     </div>

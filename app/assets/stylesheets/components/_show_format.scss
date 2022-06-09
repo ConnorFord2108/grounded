@@ -1,4 +1,4 @@
-.show-banner  {
+.show-banner {
   background-size: cover;
   background-position: center;
   object-fit: fill;
@@ -7,24 +7,24 @@
   height: 600px;
   display: flex;
   align-items: center;
-  background-color:  linear-gradient(180deg, #00B88A 0%, #000000 100%);
+  background-color: linear-gradient(180deg, #00B88A 0%, #000000 100%);
   justify-content: center;
 }
 
-.show-banner  h1 {
+.show-banner h1 {
   margin: 0;
   color: white;
-  text-shadow: 1px 1px 3px rgba(0,0,0,0.2);
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
   font-size: 60px;
   font-weight: bold;
   font-family: 'Source Serif Pro', serif;
   text-align: center;
 }
 
-.show-banner  h4 {
+.show-banner h4 {
   font-size: 20px;
   color: white;
-  text-shadow: 1px 1px 3px rgba(0,0,0,0.2);
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
   text-align: center;
   font-weight: bold;
 }

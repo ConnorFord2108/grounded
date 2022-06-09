@@ -12,7 +12,7 @@ Rails.start()
 Turbolinks.start()
 ActiveStorage.start()
 
-import "controllers"
+// import "controllers"
 import "bootstrap"
 global.toastr = require("toastr")
 

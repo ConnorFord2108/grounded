@@ -66,19 +66,19 @@
                 <div>
                   <div class="card-index-infos-topline">
                     <h3><%= dest[:name] %> </h3>
+                  </div>
                     <div class="card-index-travel-time-holder d-flex">
                       <% driving_hours = dest[:travel_time_driving] / 3600 %>
                       <% driving_minutes = dest[:travel_time_driving] % 3600 / 60 %>
-                      <p class="card-index-p" id="car-time-p"> <i class="fas fa-car-alt"></i> <%= "#{driving_hours} h" if driving_hours > 0 %> <%= driving_minutes %> min</p>
+                      <p class="card-time-p" id="car-time-p"> <i class="fas fa-car-alt"></i> <%= "#{driving_hours} h" if driving_hours > 0 %> <%= driving_minutes %> min</p>
                       <% if dest[:travel_time_public_tranport] == "Over max travel time" %>
-                        <p class="card-index-p"> <i class="fas fa-train"></i> <%= "> #{@max_travel_time/3600} h" %> </p>
+                        <p class="card-time-p"> <i class="fas fa-train"></i> <%= "> #{@max_travel_time/3600} h" %> </p>
                       <% else %>
                         <% public_transport_hours = dest[:travel_time_public_tranport] / 3600 %>
                         <% public_transport_minutes = dest[:travel_time_public_tranport] % 3600 / 60 %>
-                        <p class="card-index-p"> <i class="fas fa-train"></i> <%= "#{public_transport_hours} h" if public_transport_hours > 0 %> <%= public_transport_minutes %> min</p>
+                        <p class="card-time-p"> <i class="fas fa-train"></i> <%= "#{public_transport_hours} h" if public_transport_hours > 0 %> <%= public_transport_minutes %> min</p>
                       <% end %>
                     </div>
-                  </div>
                   <p class="card-index-p"><%= dest[:description] %></p>
                 </div>
                   <p class="card-index-p"><i class="fas fa-tag"></i>Tags to be added</p>

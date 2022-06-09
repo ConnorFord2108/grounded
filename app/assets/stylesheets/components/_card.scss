@@ -1,16 +1,4 @@
-.destinations h2 {
-  text-align: center;
-  display: flex;
-  margin: 50px 100px 100px 100px;
-  font-family: 'Montserrat', sans-serif;
-}
 
-.destinations h3 {
-  font-family: 'Montserrat', sans-serif;
-  display: flex;
-  align-items: center;
-  padding-top: 160px;
-}
 
 .cards {
   display: flex;
@@ -41,7 +29,7 @@
 
 .card-index {
   overflow: hidden;
-  height: 120px;
+  height: 150px;
   background: white;
   box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
   display: flex;
@@ -87,9 +75,10 @@
   justify-content: space-between;
 }
 
-.card-index-infos-topline p {
+.card-time-p {
   color: $grounded-green;
   font-size: 24;
+  margin-top: 5px;;
 }
 
 .card-index-infos-topline h3 {
@@ -117,6 +106,14 @@
   position: absolute;
   top: 2px;
   right: 6px;
+}
+
+.card-index-img-div {
+  height: 100%;
+  width: 220px;
+  background-position: center;
+  background-size: cover;
+  position: relative;
 }
 
 #car-time-p {

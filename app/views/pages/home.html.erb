@@ -1,6 +1,6 @@
 
 <div class="banner" style="background-image: linear-gradient(rgba(0,184,138,0.4),rgba(0,0,0,0.4)), url(https://s3-alpha-sig.figma.com/img/f2bf/8302/35b71be6d04e8a2d4f458a71163151f7?Expires=1655078400&Signature=UCg~~zkN~9t4gqF3y1u111TfyYkTnEapV58g9Cz5LFxBQJlHxDPGrZG06wUfzOh90rTB-Trt8GqsS7Gbf0OLP0Zjb0wlCcwfveEBIOmXLmZlF2WZkkCiVzZ5LB0CR3LdSM2zfB7jwU5Jr0wCx6bmvo3-J8UL0hkY8OVBVaw-D52BJnsrMq1ogMA6tzj4~CkvqCvbF9QWYPPgz0cj4b0qOxR3K9PYo9uxkVGtolPLs8lDkW91hx1iUXkHon4Pb-RXMnfTy2g4hUxYxqHif-lgBhczy3bpfjLXMjJnkdFjc-zHFAfNlkxX2ISJlhKbm8xQ9v8HRuSDaO7QSxKNdqh0wA__&Key-Pair-Id=APKAINTVSUGEWH5XD5UA);">
-  <div class="container">
+  <div class="container" id="banner-container">
     <h1>Get away!</h1>
     <h1>Even if you are GROUNDED!</h1>
     <div class="form">
@@ -22,30 +22,63 @@
 </div>
 
 <div class="container ">
-  <div class="row">
-    <div class="destinations">
-      <h2>Most booked destinations</h2>
-      <div class="cards">
-      <div class="card" style="background-image: url(https://s3-alpha-sig.figma.com/img/5291/bd3a/1a6859ca664b83f66a4ac3dec9349ea7?Expires=1655078400&Signature=H3gPVcR7tr9BelSMjePAk4GeKLE0LBVeONqn6tOctMfZ7LVjzhNqHGJeVMCsAvsmg2M3MWEdZpyfoynHuFCbYJc0wRE33PFGoeUIVvuoMGn7jTaObD5RGtRo~ehoMaHt3XjI8lh9yug1UQblgphRXiS3Gs4NN9U0NKn3rLI4sHYQmTgBCjS2aXpmxgiUY77HVWzb43cC5vnW~6kv4Qy9j5sxTy1s53vEFDEl8cqY~ImPrnssdaRiq5WqsUxRiqY-33agUX8vPys1RJu9gPY0iRhD-dmR7xM9mNUAppOEz93otp4hYv6dmgDAc-q5vEJceBQEbg1oOoK3lkDKWdJ-Pg__&Key-Pair-Id=APKAINTVSUGEWH5XD5UA)">
-        <h3>Lisbon</h3>
-      </div>
-      <div class="card" style="background-image: url(https://s3-alpha-sig.figma.com/img/c36b/1b38/b4b7b3d2bb7bd76fa9c8f7e898e53778?Expires=1655078400&Signature=eUM9iCk3iHo78ZHzsG5bMBc8TDCB~dAmMgvW1jDqQz0z8KnOI5j4v-9Wwxx4Il3nfkZZjO9ScVaWTbOvVeD1qZ0oEVH6Q3dMQEaBOq-5tWA9jZgxhLPmBuNQsNOV5STwXRY0m-bvk--HBI0gnleyt~ia7Q9BIRl1evd~SdN3Vhtsm4-jo34-OImVPaJVX~uYxs0oz4RwnxVYAUkBUl3nb5tyzm26fsNOQeJsh2d0wyTaomaXfS5cHKCogCeh3AFzNsx69f-B-pdhnc2lQ19lUm16A-sPuQPGJTI9C4LWiop78m5h3jEGycF4eYTjvcbl--ztWWdwwk8DFxDAG2Bppg__&Key-Pair-Id=APKAINTVSUGEWH5XD5UA)">
-        <h3>Munich</h3>
-        </div>
-        <div class="card" style="background-image: url(https://s3-alpha-sig.figma.com/img/5573/fa60/2ef9715b22516d3e0036edfbb855ff85?Expires=1655078400&Signature=GnSxToZER1AVeKQ8jEOitki8LHQluJmveoY3BgfcxSJDM5VjxokoHYbPIHHrWnoGXGx-2GXGvNtQ2khjcjKmLmE1dZ6Sronw-D9SJgOx2Th0oQ7rD-jCwfiw7BErT32S~58GfvOD2R0~uPqrzTHQne0jZk7gBOR9NIh8HhYB6bqlviKve~Xe-kVTcxsWk3cGSMcXcrlqvTFnl24tgl4kBmwMq5BSzr0hRxylIh8RBZo1Jpmy7G7IyICSKca87vS5OKEgi~XY02745ckzwzSkKpc31A32RhG5XAtzZ9G4zSnpR08XJrxWXe8h9e~IH~cF1YEWr-TW9hLZI1vWAZrH4Q__&Key-Pair-Id=APKAINTVSUGEWH5XD5UA)">
-          <h3>London</h3>
-        </div>
-        <div class="card" style="background-image: url(https://s3-alpha-sig.figma.com/img/f3d0/b561/ac04e621edcd75691bf1f5078b32ed9d?Expires=1655078400&Signature=TRLQy3~JNZ18WQ7ZMWv4bGVg8tqmRcTSEA7EXTBoq1Kvp0QN6sYJBQI3w1hW~WCGaWMyrN7b48-pSfVTpzECJPoAoqKZyfSaI-0LkDLulheySb0g2TAs2MCSbYVdelQr1fTtS48w-3qG2damMYPipsAU3Cz7eC6KeWeNF9WIp4QiiDrhXyJQTc8KofOt2UZrYWB41BjIEKII1uGo4my1Y6mfITinnpJp7upeRdOnjjrZWq7Ul7LhoHXmAlNM8~VH-Zq1CY1eFMPDo-XBS6LDfrJS4gheuvlkab4URg66f4VHcLL1Tu7HJlHFpEDVm5Sv87IJh3qISPYII-8MAkr0dA__&Key-Pair-Id=APKAINTVSUGEWH5XD5UA)">
-        <h3>Berlin</h3>
+  <% @destination_instances = Destination.first(12) %>
+
+  <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+  <div class="carousel-inner">
+    <div class="carousel-item active">
+    <div class="row">
+        <div class="destinations">
+          <h2>Example destinations</h2>
+          <div class="home-p-cards d-flex">
+            <% @destination_instances.first(4).each do |dest| %>
+              <div class="col-3">
+                <div class="destination-card" style="background-image: url(<%= dest.picture_url %>)">
+                  <h3><%= dest.name %></h3>
+                </div>
+              </div>
+            <% end %>
+          </div>
         </div>
       </div>
     </div>
+    <div class="carousel-item">
+      <div class="row">
+        <div class="destinations">
+          <h2>Most booked destinations</h2>
+          <div class="home-p-cards d-flex">
+            <% @destination_instances.last(4).each do |dest| %>
+              <div class="col-3">
+                <div class="destination-card" style="background-image: url(<%= dest.picture_url %>)">
+                  <h3><%= dest.name %></h3>
+                </div>
+              </div>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="sr-only">Previous</span>
+  </a>
+  <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="sr-only">Next</span>
+  </a>
+</div>
+
+
+
+  <div>
+    <div class="vp-line">
   </div>
 
   <div class="row">
     <div class="vp-holder">
       <div class="top-level-vp-container">
-        <h1 class="text-align-center">Stay GROUNDED and explore climate consciously!</h1>
+        <h1 class="text-align-center vp-header">Stay GROUNDED and explore climate consciously!</h1>
         <div class="vp-q-and-a-holder">
           <div class="col-4">
             <div class="vp-q-holder">
@@ -69,10 +102,10 @@
             </div>
           </div>
         </div>
-        <div class="vp-line">
+          <div class="vp-line">
         </div>
         <div class="vp-bottom-half">
-          <h1 >We keep you GROUNDED in 3 easy steps!</h1>
+          <h1 class="vp-header">We keep you GROUNDED in 3 easy steps!</h1>
           <div class="three-steps-container">
             <div class="col-3">
               <div class="step-card">

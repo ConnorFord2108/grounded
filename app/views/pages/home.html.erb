@@ -21,14 +21,22 @@
 <div class="examples">
   <h2>Destinations near you</h2>
 </div>
-    <% @destination_instances = Destination.first(12) %>
+    <% destinations_to_show = [] %>
+    <% destinations_to_show << Destination.find_by(name: "Nuremberg") %>
+    <% destinations_to_show << Destination.find_by(name: "Stuttgart") %>
+    <% destinations_to_show << Destination.find_by(name: "Karlsruhe") %>
+    <% destinations_to_show << Destination.find_by(name: "Zürich") %>
+    <% destinations_to_show << Destination.find_by(name: "Mannheim") %>
+    <% destinations_to_show << Destination.find_by(name: "Prague") %>
+    <% destinations_to_show << Destination.find_by(name: "Strasbourg") %>
+    <% destinations_to_show << Destination.find_by(name: "Berlin") %>
   <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
     <div class="carousel-inner">
       <div class="carousel-item active">
         <div class="row">
           <div class="destinations">
             <div class="home-p-cards d-flex">
-              <% @destination_instances.first(4).each do |dest| %>
+              <% destinations_to_show.first(4).each do |dest| %>
                 <div class="col-3">
                   <%= link_to destination_path(dest), :action => 'go', :class => "text-decoration-none" do %>
                     <div class="destination-card" style="background-image: linear-gradient(rgba(0,184,138,0.4),rgba(0,0,0,0.4)), url(<%= dest.picture_url %>)">
@@ -46,7 +54,7 @@
         <div class="row">
         <div class="destinations">
           <div class="home-p-cards d-flex">
-            <% @destination_instances.last(4).each do |dest| %>
+            <% destinations_to_show.last(4).each do |dest| %>
               <div class="col-3">
                 <%= link_to destination_path(dest), :action => 'go', :class => "text-decoration-none" do %>
                   <div class="destination-card" style="background-image: linear-gradient(rgba(0,184,138,0.4),rgba(0,0,0,0.4)), url(<%= dest.picture_url %>)">
@@ -96,7 +104,7 @@
           <div class="col-4">
             <div class="vp-answer">
               <h2>Use GROUNDED</h2>
-              <p>Stop flying and find travel destinations you can reach by public transport or car!</p>
+              <p>Stop flying and find travel destinations you can reach by public transport or carra!</p>
             </div>
           </div>
         </div>

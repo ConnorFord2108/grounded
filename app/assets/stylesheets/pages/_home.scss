@@ -44,8 +44,12 @@
 
 .top-level-vp-container h1 {
   color: $grounded-green;
+  margin-bottom: 24px;
 }
 
+.vp-q-holder {
+  margin: 12px;
+}
 .vp-holder {
   padding: 40px;
 }
@@ -70,9 +74,6 @@
   margin-left: 20px;
 }
 
-.vp-bottom-half h1 {
-  color: #008564;
-}
 
 .vp-q h2 {
   color: white;
@@ -95,6 +96,7 @@
   text-align: center;
   flex-direction: column;
   justify-content: space-evenly;
+  margin: 12px;
 }
 
 .vp-answer h2 {
@@ -141,4 +143,58 @@
   padding-top: 30px;
   font-weight: bold;
   font-family: 'Source Serif Pro', serif;
+}
+
+.vp-three-steps-container {
+  display: flex;
+}
+
+.vp-step-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 12px;
+}
+
+.vp-step-card h1 {
+  color: white;
+  margin: 0;
+}
+
+.vp-step-card h2 {
+  color: white;
+  font-size: 24px;
+}
+
+.vp-step-card-number-holder {
+  border-radius: 50%;
+  height: 5em;
+  width: 5em;
+  background-color: $grounded-green;
+  border: solid 4px white;
+  position: relative;
+  margin-bottom: -2em;
+  display: flex;
+  align-items: center;
+  justify-content: center
+}
+
+.vp-step-card-content-holder {
+  border-radius: 8px;
+  background-color: #008564;
+  height: 12em;
+  padding: 8px;
+  align-items: center;
+  display: flex;
+  text-align: center;
+  flex-direction: column;
+  justify-content: space-evenly;
+  width: 80%;
+}
+
+.highlighted-green {
+  color: #e60f05;
+  color: var(--red);
+  background: #ffe0e1;
+  background: var(--light-red);
 }

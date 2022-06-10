@@ -55,7 +55,7 @@
       <% end %>
 
       <%  %>
-
+      <% @destination_instances = Destination.all %>
       <% @near_destinations.each do |dest| %>
           <% destination_instance = @destination_instances.find { |i| i.wikidata_id == dest[:wikidata_id] } %>
           <%= link_to destination_path(destination_instance), :action => 'go', :class => "text-decoration-none" do %>
@@ -70,10 +70,10 @@
                       <% driving_minutes = dest[:travel_time_driving] % 3600 / 60 %>
                       <p class="card-time-p" id="car-time-p"> <i class="fas fa-car-alt"></i> <%= "#{driving_hours} h" if driving_hours > 0 %> <%= driving_minutes %> min</p>
                     </div>
-                  <p class="card-index-p"><%= dest[:description] %></p>
+                  <p class="card-index-p"><%= destination_instance.description %></p>
                 </div>
               </div>
-              <div class="card-index-img" style="background-image: url(<%= dest[:picture_url] %>);">
+              <div class="card-index-img" style="background-image: url(<%= destination_instance.picture_url %>);">
                 <div class="card-index-star-holder">
                   <% @rating=4.5 %>
                   <%= render 'shared/stars' %>

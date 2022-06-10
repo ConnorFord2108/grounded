@@ -143,15 +143,17 @@ class DestinationsController < ApplicationController
 
     # we itterate over the results part of API response regarding travel time which only includes those destinations which are reachable in the travel  time
     # each travel_hash has format: {"id"=>"Q3974", "properties"=>[{"travel_time"=>3365, "distance"=>74498}]}
-    data_2["results"][0]["locations"].each do |travel_hash|
-      # for these we find the responding destination data created from API 1 above
-      destination_array = @destinations.find { |i| i[0][:wikidata_id] == travel_hash["id"] }
-      # as the destination hash is stored in an arry we must take the first element from it
-      destination_hash = destination_array[0]
-      # we then add a travel time key to the destination hash using the results from the travel time API
-      destination_hash[:travel_time_driving] = travel_hash["properties"][0]["travel_time"]
-      # finally we add the destinations which are within the travel time limit into the new array of relevant destinations only
-      @near_destinations << destination_hash
+    unless data_2["results"].nil?
+      data_2["results"][0]["locations"].each do |travel_hash|
+        # for these we find the responding destination data created from API 1 above
+        destination_array = @destinations.find { |i| i[0][:wikidata_id] == travel_hash["id"] }
+        # as the destination hash is stored in an arry we must take the first element from it
+        destination_hash = destination_array[0]
+        # we then add a travel time key to the destination hash using the results from the travel time API
+        destination_hash[:travel_time_driving] = travel_hash["properties"][0]["travel_time"]
+        # finally we add the destinations which are within the travel time limit into the new array of relevant destinations only
+        @near_destinations << destination_hash
+      end
     end
 
     #Looping through second response arrary covering public transport (vs driving above)
@@ -167,49 +169,52 @@ class DestinationsController < ApplicationController
     # ADDING FINAL API TO PULL DESTINATION DESCRIPTION AND IMAGE URL
     # A wiki IDs variable containing all wiki IDs of the relevant destinations is created
     # as we need to pass these into the API to get description and image for each destination
+    @destination_instances = Destination.all
     wiki_ids = []
     @near_destinations.each do |near_dest|
+      next if @destination_instances.exists?(:wikidata_id => near_dest[:wikidata_id])
       wiki_ids << near_dest[:wikidata_id]
     end
 
-    # the array of wiki IDs is converted into a string of the format ID1|ID2|ID3 to match API requirements
-    wiki_id_input_for_API = wiki_ids.join("|")
+    unless wiki_ids.count == 0
+      # the array of wiki IDs is converted into a string of the format ID1|ID2|ID3 to match API requirements
+      wiki_id_input_for_API = wiki_ids.join("|")
 
-    # the base url for the API is adjusted to pull the data for our specific destinations
-    url = "https://www.wikidata.org/w/api.php?action=wbgetentities&ids=#{wiki_id_input_for_API}&format=json&languages=en&props=descriptions%7Cclaims"
+      # the base url for the API is adjusted to pull the data for our specific destinations
+      url = "https://www.wikidata.org/w/api.php?action=wbgetentities&ids=#{wiki_id_input_for_API}&format=json&languages=en&props=descriptions%7Cclaims"
 
-    # the url is converted into a URI which the nethttp gem can work with
-    uri = URI(url)
-    response = Net::HTTP.get(uri)
-    data = JSON.parse(response)["entities"]
+      # the url is converted into a URI which the nethttp gem can work with
+      uri = URI(url)
+      response = Net::HTTP.get(uri)
+      data = JSON.parse(response)["entities"]
 
-    # adding default image array for those cities where WikiData does not have default, array so one can be sampled and if several lack pic not all look same
-    default_image_array = ["https://images.unsplash.com/photo-1555658636-6e4a36218be7?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80",
-      "https://images.unsplash.com/photo-1498654896293-37aacf113fd9?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80",
-      "https://images.unsplash.com/photo-1544161442-e3db36c4f67c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1978&q=80",
-      "https://images.unsplash.com/photo-1535958636474-b021ee887b13?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80"
-    ]
+      # adding default image array for those cities where WikiData does not have default, array so one can be sampled and if several lack pic not all look same
+      default_image_array = ["https://images.unsplash.com/photo-1555658636-6e4a36218be7?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80",
+        "https://images.unsplash.com/photo-1498654896293-37aacf113fd9?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80",
+        "https://images.unsplash.com/photo-1544161442-e3db36c4f67c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1978&q=80",
+        "https://images.unsplash.com/photo-1535958636474-b021ee887b13?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80"
+      ]
 
-    # for each near destination we parse the response data
-    @near_destinations.each do |near_dest|
-      if data[near_dest[:wikidata_id]]["claims"]["P18"].nil?
-        near_dest[:picture_url] = default_image_array.sample
-      else
-        picture_name = data[near_dest[:wikidata_id]]["claims"]["P18"][0]["mainsnak"]["datavalue"]["value"]
-        picture_name_2 = picture_name.gsub(/\s/,'_')
-        picture_md5 = Digest::MD5.hexdigest picture_name_2
-        a = picture_md5[0]
-        b = picture_md5[1]
-        near_dest[:picture_url] = "https://upload.wikimedia.org/wikipedia/commons/#{a}/#{a}#{b}/#{picture_name_2}"
+      # for each near destination we parse the response data
+      @near_destinations.each do |near_dest|
+        if data[near_dest[:wikidata_id]].nil? || data[near_dest[:wikidata_id]]["claims"]["P18"].nil?
+          near_dest[:picture_url] = default_image_array.sample
+        else
+          picture_name = data[near_dest[:wikidata_id]]["claims"]["P18"][0]["mainsnak"]["datavalue"]["value"]
+          picture_name_2 = picture_name.gsub(/\s/,'_')
+          picture_md5 = Digest::MD5.hexdigest picture_name_2
+          a = picture_md5[0]
+          b = picture_md5[1]
+          near_dest[:picture_url] = "https://upload.wikimedia.org/wikipedia/commons/#{a}/#{a}#{b}/#{picture_name_2}"
+        end
+        if data[near_dest[:wikidata_id]].nil? || data[near_dest[:wikidata_id]]["descriptions"]["en"].nil?
+          near_dest[:description] = "Beautiful city close to #{@city}"
+        else
+          near_dest[:description] = data[near_dest[:wikidata_id]]["descriptions"]["en"]["value"].upcase_first
+        end
       end
-      if data[near_dest[:wikidata_id]]["descriptions"]["en"].nil?
-        near_dest[:description] = "Beautiful city close to #{@city}"
-      else
-        near_dest[:description] = data[near_dest[:wikidata_id]]["descriptions"]["en"]["value"].upcase_first
-      end
+
     end
-
-    @destination_instances = Destination.all
 
     # @near_destinations.each do |city|
     #   next if @destination_instances.exists?(:wikidata_id => city[:wikidata_id])
@@ -217,8 +222,7 @@ class DestinationsController < ApplicationController
     #   new_city.save
     # end
 
-    CreateDestinationsJob.perform_later(@near_destinations)
-
+    CreateDestinationsJob.perform_now(@near_destinations)
 
     # using asyncron job to perform creation to not slow down loading
     # CreateDestinationsJob.perform_later(@near_destinations)
@@ -233,13 +237,13 @@ class DestinationsController < ApplicationController
       lat: city[:latitude],
       lng: city[:longitude],
       info_window: render_to_string(partial: "info_window", locals: { destination: city
-      }),
+        }),
       image_url: helpers.asset_url("Vector (9).svg")
       }
     end
     @markers << @start_marker
-
     @sort_options = ["Sort by: Public Transport Time (asc)", "Sort by: Public Transport Time (desc)", "Sort by: Driving Time (desc)", "Sort by: Driving Time (asc)"]
+    @destination_instances = Destination.all
   end
 
   def show

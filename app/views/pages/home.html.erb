@@ -39,7 +39,7 @@
               <% destinations_to_show.first(4).each do |dest| %>
                 <div class="col-3">
                   <%= link_to destination_path(dest), :action => 'go', :class => "text-decoration-none" do %>
-                    <div class="destination-card" style="background-image: linear-gradient(rgba(0,184,138,0.4),rgba(0,0,0,0.4)), url(<%= dest.picture_url %>)">
+                    <div class="destination-card" style="background-image: url(<%= dest.picture_url %>)">
                       <h3><%= dest.name %></h3>
                     </div>
                   <% end %>
@@ -57,7 +57,7 @@
             <% destinations_to_show.last(4).each do |dest| %>
               <div class="col-3">
                 <%= link_to destination_path(dest), :action => 'go', :class => "text-decoration-none" do %>
-                  <div class="destination-card" style="background-image: linear-gradient(rgba(0,184,138,0.4),rgba(0,0,0,0.4)), url(<%= dest.picture_url %>)">
+                  <div class="destination-card" style="background-image: url(<%= dest.picture_url %>)">
                     <h3><%= dest.name %></h3>
                   </div>
                 <% end %>

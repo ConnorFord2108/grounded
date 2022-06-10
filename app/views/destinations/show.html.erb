@@ -20,14 +20,15 @@
     </div>
 
      <!-- ------------------- CARDS---------------------- -->
-    <div class="row justify-content-md-center" data-controller="load">
+    <div class="row" data-controller="load">
 
       <% @recommendations.each_with_index do |recommendation, index|  %>
 
         <div class="col-3 <%="d-none" if index > 3 %> cards-to-load" >
           <div class="card-show-v2">
-
-            <img src="<%= recommendation.photo_url %>" class="rounded" alt="Picture of <%= recommendation.name %>" >
+            <div class="show-card-img-holder">
+              <img src="<%= recommendation.photo_url %>" class="rounded" alt="Picture of <%= recommendation.name %>" >
+            </div>
 
             <div class="stars-in-card">
               <div id="star-container">

@@ -7,14 +7,14 @@
   height: 600px;
   display: flex;
   align-items: center;
-  background-color: linear-gradient(180deg, #00B88A 0%, #000000 100%);
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8);
   justify-content: center;
 }
 
 .show-banner h1 {
   margin: 0;
   color: white;
-  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8);
   font-size: 60px;
   font-weight: bold;
   font-family: 'Source Serif Pro', serif;

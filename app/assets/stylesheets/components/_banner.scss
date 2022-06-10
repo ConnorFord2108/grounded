@@ -7,7 +7,6 @@
   height: 400px;
   display: flex;
   align-items: center;
-  background-color:  linear-gradient(180deg, #00B88A 0%, #000000 100%);
 }
 
 .banner h1 {
@@ -17,13 +16,14 @@
   font-size: 60px;
   font-weight: bold;
   font-family: 'Source Serif Pro', serif;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8);
 }
 
 .banner p {
   font-size: 20px;
   color: white;
   opacity: .7;
-  text-shadow: 1px 1px 3px rgba(0,0,0,0.2);
+  text-shadow: 1px 1px 3px rgba(0,0,0,0.8);
 }
 
 .form {

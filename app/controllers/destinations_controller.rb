@@ -242,7 +242,7 @@ class DestinationsController < ApplicationController
       }
     end
     @markers << @start_marker
-    @sort_options = ["Sort by: Public Transport Time (asc)", "Sort by: Public Transport Time (desc)", "Sort by: Driving Time (desc)", "Sort by: Driving Time (asc)"]
+    @sort_options = ["Sort by: Driving Time (desc)", "Sort by: Driving Time (asc)"]
     @destination_instances = Destination.all
   end
 
